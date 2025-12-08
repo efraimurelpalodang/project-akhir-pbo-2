@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Str;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 
 class Pengguna extends Authenticatable
 {
@@ -18,21 +20,13 @@ class Pengguna extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['role_id','username','password','nama_pengguna','jk','telp'];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     /**
      * Get the attributes that should be cast.
@@ -57,5 +51,36 @@ class Pengguna extends Authenticatable
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+    
+
+    public function bk(): HasMany
+    {
+        return $this->hasMany(barangKeluar::class);
+    }
+
+    public function bm(): HasMany
+    {
+        return $this->hasMany(barangMasuk::class);
+    }
+
+    public function so(): HasMany
+    {
+        return $this->hasMany(salesOrder::class);
+    }
+
+    public function transaksi(): HasMany
+    {
+        return $this->hasMany(transaksiPenjualan::class);
+    }
+
+    public function suratJalan(): HasMany
+    {
+        return $this->hasMany(suratJalan::class);
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(role::class);
     }
 }
