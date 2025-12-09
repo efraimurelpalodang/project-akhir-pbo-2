@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -9,7 +10,7 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class UserFactory extends Factory
+class PenggunaFactory extends Factory
 {
     /**
      * The current password being used by the factory.
@@ -24,11 +25,12 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'role_id' => Role::inRandomOrder()->value('id') ?? 1,
+            'username' => Str::lower($this->faker->unique()->lexify('???????????????')),
             'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'nama_pengguna' => $this->faker->name(),
+            'jk' => $this->faker->randomElement(['L', 'P']),
+            'telp' => '08' . mt_rand(100000000, 999999999),
         ];
     }
 
