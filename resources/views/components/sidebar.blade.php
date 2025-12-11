@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">MatStock<sup>nice</sup></div>
     </a>
 
     <!-- Divider -->
@@ -24,39 +24,62 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        Transaksi
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#salesOrder"
+            aria-expanded="true" aria-controls="salesOrder">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Components</span>
+            <span>Sales Order</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
+        <div id="salesOrder" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="collapse-inner rounded">
+                <a class="collapse-item text-white" href="buttons.html">Buat Sales Order</a>
+                <a class="collapse-item text-white" href="buttons.html">Daftar Sales Order</a>
+                <a class="collapse-item text-white" href="cards.html">Riwayat Sales Order</a>
+                <a class="collapse-item text-white" href="cards.html">Sales Order Masuk</a>
+                <a class="collapse-item text-white" href="cards.html">Siap Diantar</a>
             </div>
         </div>
     </li>
-
-    <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataPembeli"
+            aria-expanded="true" aria-controls="dataPembeli">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Data Pembeli</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
+        <div id="dataPembeli" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="collapse-inner rounded">
+                <a class="collapse-item text-white" href="buttons.html">Tambah Pembeli</a>
+                <a class="collapse-item text-white" href="buttons.html">Daftar Pembeli</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#suratJalan"
+            aria-expanded="true" aria-controls="suratJalan">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Surat Jalan</span>
+        </a>
+        <div id="suratJalan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="collapse-inner rounded">
+                <a class="collapse-item text-white" href="buttons.html">So Siap Diantar</a>
+                <a class="collapse-item text-white" href="buttons.html">Buat Surat Jalan</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#laporan" aria-expanded="true"
+            aria-controls="laporan">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Laporan</span>
+        </a>
+        <div id="laporan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="collapse-inner rounded">
+                <a class="collapse-item text-white" href="buttons.html">Laporan Penjualan</a>
+                <a class="collapse-item text-white" href="buttons.html">Laporan Stok</a>
             </div>
         </div>
     </li>
@@ -66,42 +89,45 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Addons
+        Master Data
     </div>
+    <li class="nav-item">
+        <a class="nav-link" href="index.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Data Barang</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="index.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Data Satuan</span></a>
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#managementBarang"
+            aria-expanded="true" aria-controls="managementBarang">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
+            <span>Management Barang</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Login Screens:</h6>
-                <a class="collapse-item" href="login.html">Login</a>
-                <a class="collapse-item" href="register.html">Register</a>
-                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
+        <div id="managementBarang" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="py-2 collapse-inner rounded">
+                <a class="collapse-item text-white" href="login.html">Barang Masuk</a>
+                <a class="collapse-item text-white" href="register.html">Barang Keluar</a>
             </div>
         </div>
     </li>
-
-    <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#managementPengguna"
+            aria-expanded="true" aria-controls="managementPengguna">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Management Pengguna</span>
+        </a>
+        <div id="managementPengguna" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="py-2 collapse-inner rounded">
+                <a class="collapse-item text-white" href="login.html">Data Pengguna</a>
+                <a class="collapse-item text-white" href="register.html">Data Peran</a>
+            </div>
+        </div>
     </li>
 
     <!-- Divider -->
