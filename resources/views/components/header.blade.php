@@ -5,7 +5,7 @@
     </button>
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-        <x-alerts dropdownId="alertsDropdown" icon="fas fa-bell" counter="3+" title="Alerts Center"
+        <livewire:alerts-dropdown dropdownId="alertsDropdown" icon="fas fa-bell" counter="3+" title="Alerts Center"
             footerText="Show All Alerts" :items="[
                 [
                     'icon' => 'fas fa-file-alt',
@@ -28,28 +28,27 @@
                 ],
             ]" />
 
-        <x-alerts dropdownId="messagesDropdown" icon="fas fa-envelope" counter="7" title="Message Center"
-            footerText="Read More Messages" :items="[
+        <livewire:alerts-dropdown dropdownId="messagesDropdown" icon="fas fa-envelope" counter="7"
+            title="Message Center" footerText="Read More Messages" :items="[
                 [
-                    'img' => 'img/undraw_profile_1.svg',
+                    'img' => asset('assets/img/undraw_profile_1.svg'),
                     'status' => 'bg-success',
                     'text' => 'Hi there! I need help...',
                     'time' => 'Emily · 58m',
                     'bold' => true,
                 ],
                 [
-                    'img' => 'img/undraw_profile_2.svg',
+                    'img' => asset('assets/img/undraw_profile_2.svg'),
                     'text' => 'I have the photos you ordered...',
                     'time' => 'Jae · 1d',
                 ],
                 [
-                    'img' => 'img/undraw_profile_3.svg',
+                    'img' => asset('assets/img/undraw_profile_3.svg'),
                     'status' => 'bg-warning',
                     'text' => 'Last month report looks great!',
                     'time' => 'Morgan · 2d',
                 ],
             ]" />
-
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -83,8 +82,7 @@
         </li>
     </ul>
 </nav>
-<x-modal id="logoutModal" body="Apakah anda yakin ingin keluar?" btnLeft="Batal" btnRight="Keluar" title="Keluar"
-></x-modal>
+<livewire:modal id="logoutModal" body="Apakah anda yakin ingin keluar?" btnLeft="Batal" btnRight="Keluar" title="Keluar" />
 <!-- End of Topbar -->
 
 <!-- Scroll to Top Button-->

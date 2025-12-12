@@ -10,18 +10,12 @@
             <div class="container-fluid">
                 <!-- Content Row -->
                 <div class="row">
-                    <x-card-info title="total trankaksi" value="$40,000" color="primary" icon="fas fa-calendar" />
-
-                    <x-card-info title="total penjualan" value="$215,000" color="success"
-                        icon="fas fa-dollar-sign" />
-
-                    <x-card-info title="Tasks" value="50%" color="info" icon="fas fa-clipboard-list"
+                    <livewire:card-info title="total trankaksi" value="$40,000" color="primary" icon="fas fa-calendar" />
+                    <livewire:card-info title="total penjualan" value="$215,000" color="success" icon="fas fa-dollar-sign" />
+                    <livewire:card-info title="Tasks" value="50%" color="info" icon="fas fa-clipboard-list"
                         progress="50" />
-
-                    <x-card-info title="Pending Requests" value="18" color="warning" icon="fas fa-comments" />
+                    <livewire:card-info title="Pending Requests" value="18" color="warning" icon="fas fa-comments" />
                 </div>
-
-
                 <!-- Content Row -->
 
                 <div class="row">

@@ -2,20 +2,16 @@
     <a class="nav-link dropdown-toggle" href="#" id="{{ $dropdownId }}" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <i class="{{ $icon }} fa-fw"></i>
-        <!-- Counter -->
         <span class="badge badge-danger badge-counter">{{ $counter }}</span>
     </a>
 
-    <!-- Dropdown -->
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
         aria-labelledby="{{ $dropdownId }}">
 
         <h6 class="dropdown-header">{{ $title }}</h6>
 
-        {{-- Loop items --}}
         @foreach ($items as $item)
             <a class="dropdown-item d-flex align-items-center" href="#">
-                {{-- Jika ada icon --}}
                 @if (isset($item['icon']))
                     <div class="mr-3">
                         <div class="icon-circle {{ $item['bg'] ?? 'bg-primary' }}">
@@ -24,7 +20,6 @@
                     </div>
                 @endif
 
-                {{-- Jika pakai image seperti messages --}}
                 @if (isset($item['img']))
                     <div class="dropdown-list-image mr-3">
                         <img class="rounded-circle" src="{{ $item['img'] }}">
