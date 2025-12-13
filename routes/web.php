@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LoginController::class, 'index']);
-Route::get('/dashboard', function () {
-    return view('layouts.admin');
-});
+Route::view('/dashboard','dashboard');
+Route::view('/pembeli', 'pembeli.index')->name('pembeli.index');
+Route::view('/superadmin/user', 'superadmin.user.index')->name('superadmin.user.index');
+Route::view('/superadmin/peran', 'superadmin.peran.index')->name('superadmin.peran.index');

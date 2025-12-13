@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Components;
 
 use Livewire\Component;
 
 class AlertsDropdown extends Component
 {
+
     public $icon;
     public $counter;
     public $title;
@@ -22,9 +23,9 @@ class AlertsDropdown extends Component
         $this->dropdownId = $dropdownId;
         $this->footerText = $footerText;
     }
-
+    
     public function render()
     {
-        return view('livewire.alerts-dropdown');
+        return view('livewire.components.alerts-dropdown');
     }
 }

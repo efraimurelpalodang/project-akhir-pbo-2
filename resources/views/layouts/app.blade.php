@@ -14,28 +14,29 @@
         rel="stylesheet">
     <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
     @livewireStyles
+    @stack('styles')
 </head>
 
 <body id="page-top">
     <div id="wrapper">
-        <x-sidebar></x-sidebar>
+        @include('layouts.sidebar')
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                <x-header></x-header>
-                @yield('content')
+                @include('layouts.navbar')
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
 
-    @livewireScripts
-    <!-- JavaScript-->
     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    @livewireScripts
+    @stack('scripts')
+    <!-- JavaScript-->
     <script src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script>
 </body>
 
 </html>

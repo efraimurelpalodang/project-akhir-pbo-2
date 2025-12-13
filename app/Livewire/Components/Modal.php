@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Components;
 
 use Livewire\Component;
 
@@ -20,10 +20,9 @@ class Modal extends Component
         $this->btnLeft = $btnLeft;
         $this->btnRight = $btnRight;
     }
-
-
+    
     public function render()
     {
-        return view('livewire.modal');
+        return view('livewire.components.modal');
     }
 }

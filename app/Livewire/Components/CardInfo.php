@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Components;
 
 use Livewire\Component;
 
@@ -20,9 +20,9 @@ class CardInfo extends Component
         $this->icon = $icon;
         $this->progress = $progress;
     }
-
+    
     public function render()
     {
-        return view('livewire.card-info');
+        return view('livewire.components.card-info');
     }
 }
