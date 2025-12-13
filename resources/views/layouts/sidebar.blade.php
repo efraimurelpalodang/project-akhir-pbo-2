@@ -14,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="/dashboard">
+        <a wire:navigate class="nav-link" href="/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -36,12 +36,12 @@
         </a>
         <div id="salesOrder" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="collapse-inner rounded">
-                <a class="collapse-item text-white" href="#">Buat
+                <a wire:navigate class="collapse-item text-white" href="#">Buat
                     Sales Order</a>
-                <a class="collapse-item text-white" href="#">Daftar Sales Order</a>
-                <a class="collapse-item text-white" href="cards.html">Riwayat Sales Order</a>
-                <a class="collapse-item text-white" href="cards.html">Sales Order Masuk</a>
-                <a class="collapse-item text-white" href="cards.html">Siap Diantar</a>
+                <a wire:navigate class="collapse-item text-white" href="#">Daftar Sales Order</a>
+                <a wire:navigate class="collapse-item text-white" href="cards.html">Riwayat Sales Order</a>
+                <a wire:navigate class="collapse-item text-white" href="cards.html">Sales Order Masuk</a>
+                <a wire:navigate class="collapse-item text-white" href="cards.html">Siap Diantar</a>
             </div>
         </div>
     </li>
@@ -53,8 +53,8 @@
         </a>
         <div id="dataPembeli" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="collapse-inner rounded">
-                <a class="collapse-item text-white" href="buttons.html">Tambah Pembeli</a>
-                <a class="collapse-item text-white" href="buttons.html">Daftar Pembeli</a>
+                <a wire:navigate class="collapse-item text-white" href="buttons.html">Tambah Pembeli</a>
+                <a wire:navigate class="collapse-item text-white" href="buttons.html">Daftar Pembeli</a>
             </div>
         </div>
     </li>
@@ -66,8 +66,8 @@
         </a>
         <div id="suratJalan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="collapse-inner rounded">
-                <a class="collapse-item text-white" href="buttons.html">So Siap Diantar</a>
-                <a class="collapse-item text-white" href="buttons.html">Buat Surat Jalan</a>
+                <a wire:navigate class="collapse-item text-white" href="buttons.html">So Siap Diantar</a>
+                <a wire:navigate class="collapse-item text-white" href="buttons.html">Buat Surat Jalan</a>
             </div>
         </div>
     </li>
@@ -79,8 +79,8 @@
         </a>
         <div id="laporan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="collapse-inner rounded">
-                <a class="collapse-item text-white" href="buttons.html">Laporan Penjualan</a>
-                <a class="collapse-item text-white" href="buttons.html">Laporan Stok</a>
+                <a wire:navigate class="collapse-item text-white" href="buttons.html">Laporan Penjualan</a>
+                <a wire:navigate class="collapse-item text-white" href="buttons.html">Laporan Stok</a>
             </div>
         </div>
     </li>
@@ -93,12 +93,12 @@
         Master Data
     </div>
     <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a wire:navigate class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Data Barang</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a wire:navigate class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Data Satuan</span></a>
     </li>
@@ -112,8 +112,8 @@
         </a>
         <div id="managementBarang" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="py-2 collapse-inner rounded">
-                <a class="collapse-item text-white" href="login.html">Barang Masuk</a>
-                <a class="collapse-item text-white" href="register.html">Barang Keluar</a>
+                <a wire:navigate class="collapse-item text-white" href="login.html">Barang Masuk</a>
+                <a wire:navigate class="collapse-item text-white" href="register.html">Barang Keluar</a>
             </div>
         </div>
     </li>
@@ -126,8 +126,8 @@
         <div id="managementPengguna" class="collapse" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="py-2 collapse-inner rounded">
-                <a class="collapse-item text-white {{ Route::is('superadmin.user.*') ? 'active' : '' }}" href="/superadmin/user">Data Pengguna</a>
-                <a class="collapse-item text-white" href="/superadmin/peran">Data Peran</a>
+                <a wire:navigate class="collapse-item text-white {{ Route::is('superadmin.user.*') ? 'active' : '' }}" href="/superadmin/user">Data Pengguna</a>
+                <a wire:navigate class="collapse-item text-white" href="/superadmin/peran">Data Peran</a>
             </div>
         </div>
     </li>

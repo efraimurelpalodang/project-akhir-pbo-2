@@ -16,14 +16,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
+                    @foreach ($penggunas as $pengguna)
+                        <tr>
+                            <td>{{ $pengguna->nama_pengguna }}</td>
+                            <td>{{ $pengguna->username }}</td>
+                            <td>{{ $pengguna->jk == 'P'? 'Perempuan':'Laki-Laki' }}</td>
+                            <td>{{ $pengguna->telp }}</td>
+                            <td>{{ $pengguna->role->nama_peran }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
