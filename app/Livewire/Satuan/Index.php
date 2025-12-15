@@ -10,8 +10,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.satuan.index', [
-            'satuans' => Satuan::latest()->get(),
-            'title' => 'satuan'
+            'satuans' => Satuan::latest()->get()
         ]);
     }
 }
