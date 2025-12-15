@@ -10,7 +10,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.superadmin.user.index', [
-            'penggunas' => Pengguna::all()
+            'penggunas' => Pengguna::latest()->get()
         ]);
     }
 }

@@ -29,6 +29,11 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
+        <a wire:navigate class="nav-link" href="/pembeli">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Data Pembeli</span></a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#salesOrder"
             aria-expanded="true" aria-controls="salesOrder">
             <i class="fas fa-fw fa-cog"></i>
@@ -42,19 +47,6 @@
                 <a wire:navigate class="collapse-item text-white" href="cards.html">Riwayat Sales Order</a>
                 <a wire:navigate class="collapse-item text-white" href="cards.html">Sales Order Masuk</a>
                 <a wire:navigate class="collapse-item text-white" href="cards.html">Siap Diantar</a>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataPembeli"
-            aria-expanded="true" aria-controls="dataPembeli">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Data Pembeli</span>
-        </a>
-        <div id="dataPembeli" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="collapse-inner rounded">
-                <a wire:navigate class="collapse-item text-white" href="buttons.html">Tambah Pembeli</a>
-                <a wire:navigate class="collapse-item text-white" href="buttons.html">Daftar Pembeli</a>
             </div>
         </div>
     </li>
@@ -93,12 +85,12 @@
         Master Data
     </div>
     <li class="nav-item">
-        <a wire:navigate class="nav-link" href="index.html">
+        <a wire:navigate class="nav-link" href="/barang">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Data Barang</span></a>
     </li>
     <li class="nav-item">
-        <a wire:navigate class="nav-link" href="index.html">
+        <a wire:navigate class="nav-link" href="/satuan">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Data Satuan</span></a>
     </li>

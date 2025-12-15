@@ -20,9 +20,17 @@
                         <tr>
                             <td>{{ $pengguna->nama_pengguna }}</td>
                             <td>{{ $pengguna->username }}</td>
-                            <td>{{ $pengguna->jk == 'P'? 'Perempuan':'Laki-Laki' }}</td>
+                            <td>{{ $pengguna->jk == 'P' ? 'Perempuan' : 'Laki-Laki' }}</td>
                             <td>{{ $pengguna->telp }}</td>
                             <td>{{ $pengguna->role->nama_peran }}</td>
+                            <td class="d-flex justify-content-center align-items-center">
+                                <a href="/pengguna/edit/{{ $pengguna->username }}" class="btn btn-success mr-1 btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/pengguna/hapus/{{ $pengguna->username }}" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
