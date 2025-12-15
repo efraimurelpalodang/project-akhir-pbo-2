@@ -21,6 +21,7 @@ class Pengguna extends Authenticatable
      * @var list<string>
      */
     protected $fillable = ['role_id','username','password','nama_pengguna','jk','telp'];
+    protected $with = ['role'];
 
     /**
      * The attributes that should be hidden for serialization.

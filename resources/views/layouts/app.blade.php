@@ -37,6 +37,9 @@
     <!-- JavaScript-->
     <script data-navigate-once src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script data-navigate-once src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
+    {{-- sweeatalert2 --}}
+    <script src="{{ asset('assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+    {{-- sweeatalert2 --}}
 </body>
 
 </html>

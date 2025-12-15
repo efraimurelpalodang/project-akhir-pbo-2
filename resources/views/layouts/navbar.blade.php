@@ -5,8 +5,8 @@
     </button>
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-        <livewire:components.alerts-dropdown dropdownId="alertsDropdown" icon="fas fa-bell" counter="3+" title="Alerts Center"
-            footerText="Show All Alerts" :items="[
+        <livewire:components.alerts-dropdown dropdownId="alertsDropdown" icon="fas fa-bell" counter="3+"
+            title="Alerts Center" footerText="Show All Alerts" :items="[
                 [
                     'icon' => 'fas fa-file-alt',
                     'bg' => 'bg-primary',
@@ -82,8 +82,9 @@
         </li>
     </ul>
 </nav>
-<livewire:components.modal id="logoutModal" body="Apakah anda yakin ingin keluar?" btnLeft="Batal" btnRight="Keluar"
-    title="Keluar" />
+<x-modal id="logoutModal" btnLeft="Batal" btnRight="Keluar">
+    <p>Apakah anda yakin ingin keluar?</p>
+</x-modal>
 <!-- End of Topbar -->
 
 <!-- Scroll to Top Button-->

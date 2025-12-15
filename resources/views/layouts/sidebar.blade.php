@@ -13,7 +13,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item {{ Route::is('dashboard') ? 'active' : '' }}">
         <a wire:navigate class="nav-link" href="/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -115,7 +115,7 @@
             <i class="fas fa-fw fa-folder"></i>
             <span>Management Pengguna</span>
         </a>
-        <div id="managementPengguna" class="collapse" aria-labelledby="headingPages"
+        <div id="managementPengguna" class="collapse {{ request()->is('superadmin/*') ? 'show' : '' }}" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="py-2 collapse-inner rounded">
                 <a wire:navigate class="collapse-item text-white {{ Route::is('superadmin.user.*') ? 'active' : '' }}" href="/superadmin/user">Data Pengguna</a>
