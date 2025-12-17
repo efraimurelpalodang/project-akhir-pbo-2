@@ -7,6 +7,18 @@
         </button>
     </div>
     <div class="card-body">
+        <div class="mb-3 d-flex justify-content-between">
+            <div class="col-2">
+                <select wire:model.live="paginate" class="form-control">
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="25">25</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <input wire:model.live="search" type="text" class="form-control" placeholder="Pencarian...">
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -28,9 +40,10 @@
                             <td>{{ $pengguna->telp }}</td>
                             <td>{{ $pengguna->role->nama_peran }}</td>
                             <td class="d-flex justify-content-center align-items-center">
-                                <a href="/pengguna/edit/{{ $pengguna->username }}" class="btn btn-success mr-1 btn-sm">
+                                <button wire:click='edit({{ $pengguna->id }})' class="btn btn-success mr-1 btn-sm"
+                                    data-toggle="modal" data-target="#editPengguna">
                                     <i class="fas fa-edit"></i>
-                                </a>
+                                </button>
                                 <a href="/pengguna/hapus/{{ $pengguna->username }}" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </a>
@@ -39,83 +52,19 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $penggunas->links() }}
         </div>
     </div>
 
-    {{-- ! modal --}}
-    <x-modal id="tambahPengguna" title="Tambah Pengguna">
-        <form wire:ignore.self>
-            <div class="mb-3">
-                <label for="nama" class="form-label">Nama Pengguna<sup class=" text-danger">*</sup></label>
-                <input wire:model="nama" type="text"
-                    class="form-control {{ $errors->has('nama') ? 'border-danger' : '' }}" id="nama">
-                @error('nama')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username<sup class=" text-danger">*</sup></label>
-                <input wire:model="username" type="text"
-                    class="form-control {{ $errors->has('username') ? 'border-danger' : '' }}" id="username">
-                @error('username')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="telp" class="form-label">Telepon<sup class=" text-danger">*</sup></label>
-                <input wire:model="telp" type="text"
-                    class="form-control {{ $errors->has('telp') ? 'border-danger' : '' }}" id="telp">
-                @error('telp')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password<sup class="text-danger">*</sup></label>
-                <input wire:model="password" type="password"
-                    class="form-control {{ $errors->has('password') ? 'border-danger' : '' }}" id="password">
-                @error('password')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-            <div class="form-group d-flex">
-                <div class="col-6">
-                    <label for="jk" class="form-label">Jenis Kelamin<sup class="text-danger">*</sup></label>
-                    <select wire:model="jk" id="jk"
-                        class="form-control {{ $errors->has('jk') ? 'border-danger' : '' }}">
-                        <option selected>-- Pilih --</option>
-                        <option value="L">Laki-Laki</option>
-                        <option value="P">Perempuan</option>
-                    </select>
-                    @error('jk')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-                <div class="col-6">
-                    <label for="peran" class="form-label">Peran<sup class="text-danger">*</sup></label>
-                    <select wire:model="peran" id="peran"
-                        class="form-control {{ $errors->has('peran') ? 'border-danger' : '' }}">
-                        <option selected>-- Pilih --</option>
-                        @foreach ($perans as $peran)
-                            <option value="{{ $peran->id }}">{{ $peran->nama_peran }}</option>
-                        @endforeach
-                    </select>
-                    @error('peran')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-            </div>
+    {{-- ! create modal --}}
+    <x-pengguna.form-modal id="tambahPengguna" title="Tambah Pengguna" rightBtn="Simpan" event="store"
+        :perans="$perans"></x-pengguna.form-modal>
+    {{-- ! create modal --}}
 
-            <x-slot:footer>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Batal
-                </button>
-                <button wire:click="store" type="submit" class="btn btn-primary">
-                    Simpan
-                </button>
-            </x-slot:footer>
-
-        </form>
-    </x-modal>
+    {{--* edit modal --}}
+    <x-pengguna.form-modal id="editPengguna" title="Edit Pengguna" rightBtn="Ubah" event="update"
+        :perans="$perans"></x-pengguna.form-modal>
+    {{--* edit modal --}}
 
     @script
         <script>
@@ -124,6 +73,18 @@
                 Swal.fire({
                     title: "Suksess!",
                     text: "Data Pengguna Berhasil Ditambahkan",
+                    icon: "success"
+                });
+            })
+        </script>
+    @endscript
+    @script
+        <script>
+            $wire.on('closeEditModal', () => {
+                $('#editPengguna').modal('hide');
+                Swal.fire({
+                    title: "Suksess!",
+                    text: "Data Pengguna Berhasil Diubah",
                     icon: "success"
                 });
             })
