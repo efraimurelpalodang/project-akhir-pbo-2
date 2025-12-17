@@ -20,13 +20,14 @@ class Index extends Component
     public $peran;
     public $pengguna_id;
     public $paginate = '10';
+    public $filter = 'nama_pengguna';
     public $search = '';
     protected $paginationTheme = 'bootstrap'; 
 
     public function render()
     {
         return view('livewire.superadmin.user.index', [
-            'penggunas' => Pengguna::where('nama_pengguna','like', '%'. $this->search .'%')
+            'penggunas' => Pengguna::where($this->filter,'like', '%'. $this->search .'%')
             ->orWhere('username','like', '%'. $this->search .'%')
             ->latest()->paginate($this->paginate),
             'perans' => Role::latest()->get(),

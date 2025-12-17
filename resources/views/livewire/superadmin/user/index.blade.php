@@ -8,12 +8,20 @@
     </div>
     <div class="card-body">
         <div class="mb-3 d-flex justify-content-between">
-            <div class="col-2">
-                <select wire:model.live="paginate" class="form-control">
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="25">25</option>
-                </select>
+            <div class="col-6 d-flex">
+                <div class="mr-2">
+                    <select wire:model.live="paginate" class="form-control">
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="25">25</option>
+                    </select>
+                </div>
+                <div>
+                    <select wire:model.live="filter" class="form-control">
+                        <option value="nama_pengguna">Nama Pengguna</option>
+                        <option value="username">Username</option>
+                    </select>
+                </div>
             </div>
             <div class="col-6">
                 <input wire:model.live="search" type="text" class="form-control" placeholder="Pencarian...">
