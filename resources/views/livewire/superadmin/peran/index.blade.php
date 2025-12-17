@@ -31,12 +31,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($perans as $peran)
+                    @forelse ($perans as $peran)
                         <tr>
                             <td>{{ $peran->nama_peran }}</td>
                             <td>{{ $peran->deskripsi }}</td>
                             <td class="d-flex justify-content-center align-items-center">
-                                <button wire:click='edit({{ $peran->id }})' class="btn btn-success mr-1 pr-1 btn-sm" data-toggle="modal" data-target="#editPeran">
+                                <button wire:click='edit({{ $peran->id }})' class="btn btn-success mr-1 pr-1 btn-sm"
+                                    data-toggle="modal" data-target="#editPeran">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <a href="/peran/hapus/{{ $peran->id }}" class="btn btn-danger btn-sm">
@@ -44,7 +45,13 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="3">
+                                <h6 class="text-center">Data Tidak Ditemukan</h6>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{ $perans->links() }}

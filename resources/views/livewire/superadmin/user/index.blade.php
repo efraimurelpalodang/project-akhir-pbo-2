@@ -40,7 +40,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($penggunas as $pengguna)
+                    @forelse ($penggunas as $pengguna)
                         <tr>
                             <td>{{ $pengguna->nama_pengguna }}</td>
                             <td>{{ $pengguna->username }}</td>
@@ -57,7 +57,13 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6">
+                                <h6 class="text-center">Data Tidak Ditemukan</h6>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{ $penggunas->links() }}
