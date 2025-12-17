@@ -13,7 +13,7 @@
                     <select wire:model.live="paginate" class="form-control">
                         <option value="10">10</option>
                         <option value="15">15</option>
-                        <option value="25">25</option>
+                        <option value="25">25</option>  
                     </select>
                 </div>
                 <div>
