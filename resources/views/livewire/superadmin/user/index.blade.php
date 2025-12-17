@@ -13,7 +13,7 @@
                     <select wire:model.live="paginate" class="form-control">
                         <option value="10">10</option>
                         <option value="15">15</option>
-                        <option value="25">25</option>  
+                        <option value="25">25</option>
                     </select>
                 </div>
                 <div>
@@ -65,14 +65,12 @@
     </div>
 
     {{-- ! create modal --}}
-    <x-pengguna.form-modal id="tambahPengguna" title="Tambah Pengguna" rightBtn="Simpan" event="store"
-        :perans="$perans"></x-pengguna.form-modal>
+    <x-pengguna.form-modal id="tambahPengguna" title="Tambah Pengguna" rightBtn="Simpan" event="store" :perans="$perans" />
     {{-- ! create modal --}}
 
-    {{--* edit modal --}}
-    <x-pengguna.form-modal id="editPengguna" title="Edit Pengguna" rightBtn="Ubah" event="update"
-        :perans="$perans"></x-pengguna.form-modal>
-    {{--* edit modal --}}
+    {{-- * edit modal --}}
+    <x-pengguna.form-modal id="editPengguna" title="Edit Pengguna" rightBtn="Ubah" event="update" :perans="$perans" />
+    {{-- * edit modal --}}
 
     @script
         <script>
