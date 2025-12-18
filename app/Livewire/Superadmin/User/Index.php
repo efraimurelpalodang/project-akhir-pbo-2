@@ -11,18 +11,19 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
-
-    public $nama;
-    public $username;
-    public $telp;
-    public $password;
-    public $jk;
-    public $peran;
-    public $pengguna_id;
-    public $paginate = '10';
-    public $filter = 'nama_pengguna';
-    public $search = '';
     protected $paginationTheme = 'bootstrap'; 
+
+    public $nama,
+            $username,
+            $telp,
+            $password,
+            $jk,
+            $peran,
+            $pengguna_id;
+
+    public $paginate = '10',
+            $filter = 'nama_pengguna',
+            $search = '';
 
     public function render()
     {

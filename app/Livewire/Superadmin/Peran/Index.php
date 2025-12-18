@@ -4,14 +4,19 @@ namespace App\Livewire\Superadmin\Peran;
 
 use App\Models\Role;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    public $search;
-    public $paginate;
-    public $nama;
-    public $deskripsi;
-    public $peran_id;
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap'; 
+    
+    public $nama,
+            $deskripsi,
+            $peran_id;
+
+    public $search,
+            $paginate;
 
     public function rules()
     {
@@ -43,7 +48,9 @@ class Index extends Component
     public function render()
     {
         return view('livewire.superadmin.peran.index',[
-            'perans' => Role::where('nama_peran', 'like', '%'. $this->search .'%')->latest()->paginate($this->paginate)
+            'perans' => Role::where('nama_peran', 'like', '%'. $this->search .'%')
+            ->latest()
+            ->paginate($this->paginate)
             ]
         );
     }
