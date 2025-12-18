@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pembeli;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Pembeli::factory()->count(20)->create();
         $this->call([
             SatuanSeeder::class,
             BarangSeeder::class,
