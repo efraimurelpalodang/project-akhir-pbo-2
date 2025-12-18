@@ -34,6 +34,48 @@ class Index extends Component
         ]);
     }
 
+    protected function rules()
+    {
+        return [
+            'nama' => 'required|max:100|string',
+            'username' => 'required|alpha_num|max:10|unique:penggunas,username,' . $this->pengguna_id,
+            'telp' => 'required',
+            'password' => $this->pengguna_id
+                ? 'nullable|min:5|max:10'
+                : 'required|min:5|max:10',
+            'jk' => 'required|in:L,P',
+            'peran' => 'required|exists:roles,id',
+        ];
+    }
+
+    protected function messages()
+    {
+        return [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nama.max' => 'Nama max 100 huruf',
+            'nama.string' => 'Nama tidak boleh mengandung angka',
+
+            'username.required' => 'Username tidak boleh kosong',
+            'username.unique' => 'Username sudah terdaftar',
+            'username.max' => 'Username max 10 huruf',
+            'username.alpha_num' => 'Username hanya boleh angka dan huruf',
+
+            'telp.required' => 'Nomor telepon tidak boleh kosong',
+
+            'password.required' => 'Password tidak boleh kosong',
+            'password.min' => 'Password tidak boleh kurang dari 5 karakter',
+            'password.max' => 'Password tidak boleh lebih dari 10 karakter',
+
+            'jk.required' => 'Jenis Kelamin harus dipilih',
+            'peran.required' => 'Peran harus dipilih',
+        ];
+    }
+
+    public function updated($property)
+    {
+        $this->validateOnly($property);
+    }
+
     public function create()
     {
         $this->resetValidation();
@@ -42,28 +84,7 @@ class Index extends Component
 
     public function store()
     {
-        $this->validate([
-            'nama' => 'required|max:100|string',
-            'username' => 'required|unique:penggunas,username|max:10',
-            'telp' => 'required',
-            'password' => 'required|min:5|max:10',
-            'jk' => 'required|in:L,P',
-            'peran' => 'required|exists:roles,id',
-        ],
-        [
-            'nama.required' => 'Nama tidak boleh kosong',
-            'nama.max' => 'Nama max 100 huruf',
-            'nama.string' => 'Nama tidak boleh mengandung angka',
-            'username.required' => 'Username tidak boleh kosong',
-            'username.unique' => 'Username sudah terdaftar',
-            'username.max' => 'Username max 10 huruf',
-            'telp.required' => 'Nomor telepon tidak boleh kosong',
-            'password.required' => 'Password tidak boleh kosong',
-            'password.min' => 'Password tidak boleh kurang dari 5 karakter',
-            'password.max' => 'Password tidak boleh lebih dari 10 karakter',
-            'jk.required' => 'Jenis Kelamin harus dipilih',
-            'peran.required' => 'Peran harus dipilih',
-        ]);
+        $this->validate();
 
         Pengguna::create([
             'nama_pengguna' => $this->nama,
@@ -97,28 +118,7 @@ class Index extends Component
     {
         $pengguna = Pengguna::findOrFail($this->pengguna_id);
         
-        $this->validate([
-            'nama' => 'required|max:100|string',
-            'username' => 'required|max:10|unique:penggunas,username,' . $this->pengguna_id,
-            'telp' => 'required',
-            'jk' => 'required|in:L,P',
-            'peran' => 'required|exists:roles,id',
-            'password' => 'nullable|min:5|max:10',
-        ],
-        [
-            'nama.required' => 'Nama tidak boleh kosong',
-            'nama.max' => 'Nama max 100 huruf',
-            'nama.string' => 'Nama tidak boleh mengandung angka',
-            'username.required' => 'Username tidak boleh kosong',
-            'username.unique' => 'Username sudah terdaftar',
-            'username.max' => 'Username max 10 huruf',
-            'telp.required' => 'Nomor telepon tidak boleh kosong',
-            'password.required' => 'Password tidak boleh kosong',
-            'password.min' => 'Password tidak boleh kurang dari 5 karakter',
-            'password.max' => 'Password tidak boleh lebih dari 10 karakter',
-            'jk.required' => 'Jenis Kelamin harus dipilih',
-            'peran.required' => 'Peran harus dipilih',
-        ]);
+        $this->validate();
 
         $data = [
             'nama_pengguna' => $this->nama,

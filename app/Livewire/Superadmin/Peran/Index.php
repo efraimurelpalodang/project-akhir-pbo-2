@@ -13,6 +13,33 @@ class Index extends Component
     public $deskripsi;
     public $peran_id;
 
+    public function rules()
+    {
+        return [
+            'nama' => 'required|unique:roles,nama_peran|string|max:20',
+            'deskripsi' => 'required|string|max:100',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nama.required' => 'Nama Peran tidak boleh kosong',
+            'nama.unique' => 'Nama Peran Sudah Terdaftar',
+            'nama.string' => 'Nama Peran tidak boleh mengandung karaker lain selain huruf',
+            'nama.max' => 'Nama Peran tidak boleh panjang dari 20 huruf',
+
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong',
+            'deskripsi.string' => 'Deskripsi tidak boleh mengandung karaker lain selain huruf',
+            'deskripsi.max' => 'Deskripsi tidak boleh panjang dari 100 huruf',
+        ];
+    }
+
+    public function updated($property)
+    {
+        $this->validateOnly($property);
+    }
+
     public function render()
     {
         return view('livewire.superadmin.peran.index',[
@@ -29,20 +56,7 @@ class Index extends Component
 
     public function store()
     {
-        $this->validate([
-                'nama' => 'required|unique:roles,nama_peran|string|max:20',
-                'deskripsi' => 'required|string|max:100',
-            ],
-            [
-                'nama.required' => 'Nama Peran tidak boleh kosong',
-                'nama.unique' => 'Nama Peran Sudah Terdaftar',
-                'nama.string' => 'Nama Peran tidak boleh mengandung karaker lain selain huruf',
-                'nama.max' => 'Nama Peran tidak boleh panjang dari 20 huruf',
-                'deskripsi.required' => 'Deskripsi tidak boleh kosong',
-                'deskripsi.string' => 'Deskripsi tidak boleh mengandung karaker lain selain huruf',
-                'nama.max' => 'Deskripsi tidak boleh panjang dari 100 huruf',
-            ]
-        );
+        $this->validate();
 
         Role::create([
             'nama_peran' => $this->nama,
@@ -66,20 +80,7 @@ class Index extends Component
     {
         $role = Role::findOrFail($this->peran_id);
         
-        $this->validate([
-                'nama' => 'required|unique:roles,nama_peran,'. $this->peran_id .'|string|max:20',
-                'deskripsi' => 'required|string|max:100',
-            ],
-            [
-                'nama.required' => 'Nama Peran tidak boleh kosong',
-                'nama.unique' => 'Nama Peran Sudah Terdaftar',
-                'nama.string' => 'Nama Peran tidak boleh mengandung karaker lain selain huruf',
-                'nama.max' => 'Nama Peran tidak boleh panjang dari 20 huruf',
-                'deskripsi.required' => 'Deskripsi tidak boleh kosong',
-                'deskripsi.string' => 'Deskripsi tidak boleh mengandung karaker lain selain huruf',
-                'nama.max' => 'Deskripsi tidak boleh panjang dari 100 huruf',
-            ]
-        );
+        $this->validate();
 
         $role->update([
             'nama_peran' => $this->nama,

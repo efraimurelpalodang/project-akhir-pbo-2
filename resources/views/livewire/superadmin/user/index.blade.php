@@ -2,7 +2,6 @@
     <div class="card-header py-3 d-flex align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Data Pengguna</h6>
         <button wire:click="create" class="btn btn-primary" data-toggle="modal" data-target="#tambahPengguna">
-            {{-- <i class="fas fa-plus mr-1"></i> --}}
             Tambah Pengguna
         </button>
     </div>

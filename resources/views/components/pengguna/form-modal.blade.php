@@ -1,8 +1,8 @@
-<x-modal id="{{ $id }}" title="{{ $title }}">
-    <form wire:ignore.self>
+<x-modal wire:ignore.self id="{{ $id }}" title="{{ $title }}">
+    <form>
         <div class="mb-3">
             <label for="nama" class="form-label">Nama Pengguna<sup class=" text-danger">*</sup></label>
-            <input wire:model="nama" type="text" class="form-control {{ $errors->has('nama') ? 'border-danger' : '' }}"
+            <input wire:model.live="nama" type="text" class="form-control {{ $errors->has('nama') ? 'border-danger' : '' }}"
                 id="nama">
             @error('nama')
                 <small class="text-danger">{{ $message }}</small>
@@ -10,7 +10,7 @@
         </div>
         <div class="mb-3">
             <label for="username" class="form-label">Username<sup class=" text-danger">*</sup></label>
-            <input wire:model="username" type="text"
+            <input wire:model.live="username" type="text"
                 class="form-control {{ $errors->has('username') ? 'border-danger' : '' }}" id="username">
             @error('username')
                 <small class="text-danger">{{ $message }}</small>
@@ -18,7 +18,7 @@
         </div>
         <div class="mb-3">
             <label for="telp" class="form-label">Telepon<sup class=" text-danger">*</sup></label>
-            <input wire:model="telp" type="text"
+            <input wire:model.live="telp" type="text"
                 class="form-control {{ $errors->has('telp') ? 'border-danger' : '' }}" id="telp">
             @error('telp')
                 <small class="text-danger">{{ $message }}</small>
@@ -26,7 +26,7 @@
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password<sup class="text-danger">*</sup></label>
-            <input wire:model="password" type="password"
+            <input wire:model.live="password" type="password"
                 class="form-control {{ $errors->has('password') ? 'border-danger' : '' }}" id="password">
             @error('password')
                 <small class="text-danger">{{ $message }}</small>

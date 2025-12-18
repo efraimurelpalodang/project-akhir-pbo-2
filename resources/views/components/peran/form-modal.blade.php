@@ -2,7 +2,7 @@
     <form>
         <div class="mb-3">
             <label>Nama Peran</label>
-            <input wire:model.defer="nama" type="text" class="form-control {{ $errors->has('nama') ? 'border-danger' : '' }}">
+            <input wire:model.live="nama" type="text" class="form-control {{ $errors->has('nama') ? 'border-danger' : '' }}">
             @error('nama')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -10,7 +10,7 @@
 
         <div class="mb-3">
             <label>Deskripsi</label>
-            <textarea wire:model.defer="deskripsi" class="form-control {{ $errors->has('deskripsi') ? 'border-danger' : '' }}"></textarea>
+            <textarea wire:model.live="deskripsi" class="form-control {{ $errors->has('deskripsi') ? 'border-danger' : '' }}"></textarea>
             @error('deskripsi')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
