@@ -55,7 +55,7 @@ class Index extends Component
         );
     }
 
-    public function create()
+    public function clean()
     {
         $this->resetValidation();
         $this->reset(['nama','deskripsi']);
@@ -71,8 +71,7 @@ class Index extends Component
         ]);
 
         $this->dispatch('closeCreateModal');
-        $this->resetValidation();
-        $this->reset(['nama','deskripsi']);
+        $this->clean();
     }
 
     public function edit($id)
@@ -95,7 +94,6 @@ class Index extends Component
         ]);
 
         $this->dispatch('closeEditModal');
-        $this->resetValidation();
-        $this->reset(['nama','deskripsi']);
+        $this->clean();
     }
 }

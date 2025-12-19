@@ -60,7 +60,7 @@ class Index extends Component
         $this->validateOnly($property);
     }
 
-    public function create()
+    public function clean()
     {
         $this->resetValidation();
         $this->reset(['nama','telp','alamat']);
@@ -76,14 +76,12 @@ class Index extends Component
         ]);
 
         $this->dispatch('closeCreateModal');
-        $this->resetValidation();
-        $this->reset(['nama','telp','alamat']);
+        $this->clean();
     }
     
     public function edit($id)
     {
-        $this->resetValidation();
-        $this->reset(['nama','telp','alamat']);
+        $this->clean();
 
         $pembeli = Pembeli::findOrFail($id);
         $this->nama = $pembeli->nama_pembeli;
@@ -104,7 +102,6 @@ class Index extends Component
         ]);
 
         $this->dispatch('closeEditModal');
-        $this->resetValidation();
-        $this->reset(['nama','telp','alamat']);
+        $this->clean();
     }
 }

@@ -75,7 +75,7 @@ class Index extends Component
         $this->validateOnly($property);
     }
 
-    public function create()
+    public function clean()
     {
         $this->resetValidation();
         $this->reset(['nama','kode','satuan','harga','stok']);
@@ -93,14 +93,12 @@ class Index extends Component
         ]);
 
         $this->dispatch('closeCreateModal');
-        $this->resetValidation();
-        $this->reset(['nama','kode','satuan','harga','stok']);
+        $this->clean();
     }
 
     public function edit($id)
     {
-        $this->resetValidation();
-        $this->reset(['nama','kode','satuan','harga','stok']);
+        $this->clean();
 
         $barang = Barang::findOrFail($id);
         $this->kode = $barang->kode;
@@ -124,5 +122,6 @@ class Index extends Component
         ]);
 
         $this->dispatch('closeEditModal');
+        $this->clean();
     }
 }

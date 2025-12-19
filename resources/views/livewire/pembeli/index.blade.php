@@ -1,7 +1,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Data Pembeli</h6>
-        <button wire:click="create" class="btn btn-primary" data-toggle="modal" data-target="#tambahPembeli">
+        <button wire:click="clean" class="btn btn-primary" data-toggle="modal" data-target="#tambahPembeli">
             Tambah Pembeli
         </button>
     </div>

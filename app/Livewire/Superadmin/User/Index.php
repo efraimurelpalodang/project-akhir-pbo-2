@@ -77,7 +77,7 @@ class Index extends Component
         $this->validateOnly($property);
     }
 
-    public function create()
+    public function clean()
     {
         $this->resetValidation();
         $this->reset(['nama','username','password','jk','peran','telp']);
@@ -97,13 +97,12 @@ class Index extends Component
         ]);
 
         $this->dispatch('closeCreateModal');
-        $this->resetValidation();
-        $this->reset(['nama','username','password','jk','peran','telp']);
+        $this->clean();
     }
 
     public function edit($id)
     {
-        $this->resetValidation();
+        $this->clean();
 
         $pengguna = Pengguna::findOrFail($id);
         $this->nama = $pengguna->nama_pengguna;
@@ -135,6 +134,7 @@ class Index extends Component
 
         $pengguna->update($data);
         $this->dispatch('closeEditModal');
+        $this->clean();
     }
 
 }
