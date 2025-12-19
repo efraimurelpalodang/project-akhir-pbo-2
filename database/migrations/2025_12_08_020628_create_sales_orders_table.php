@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('sales_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transaksi_id')->constrained(
-                table: 'transaksi_penjualans',
-                indexName: 'so_transaksi_id'
+            $table->foreignId('pembeli_id')->constrained(
+                table: 'pembelis',
+                indexName: 'so_pembeli_id'
             );
             $table->foreignId('pengguna_id')->constrained(
                 table: 'penggunas',
                 indexName: 'so_pengguna_id'
             );
             $table->date('tanggal_so');
-            $table->enum('status', ['menunggu','siap dikirim', 'dikirim']);
+            $table->enum('status', ['menunggu','proses persiapan', 'selesai persiapan', 'dikirim']);
             $table->timestamps();
         });
     }

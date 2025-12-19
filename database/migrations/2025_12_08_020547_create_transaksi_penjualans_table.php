@@ -17,9 +17,9 @@ return new class extends Migration
                 table: 'penggunas',
                 indexName: 'tp_pengguna_id'
             );
-            $table->foreignId('pembeli_id')->constrained(
-                table: 'pembelis',
-                indexName: 'tp_pembeli_id'
+            $table->foreignId('so_id')->constrained(
+                table: 'sales_orders',
+                indexName: 'tp_sales_order'
             );
             $table->date('tanggal_transaksi');
             $table->date('tanggal_antar');
