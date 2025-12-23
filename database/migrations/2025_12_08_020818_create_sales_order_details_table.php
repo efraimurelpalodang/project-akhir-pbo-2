@@ -22,6 +22,7 @@ return new class extends Migration
                 indexName: 'so_detail_barang_id'
             );
             $table->integer('jumlah', unsigned: true);
+            $table->decimal('harga_satuan', 15,2);
             $table->timestamps();
         });
     }

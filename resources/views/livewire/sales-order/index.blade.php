@@ -1,8 +1,8 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">Data Satuan</h6>
-        <button wire:click="clean" class="btn btn-primary" data-toggle="modal" data-target="#tambahSatuan">
-            Tambah Satuan
+        <h6 class="m-0 font-weight-bold text-primary">Daftar Sales Order</h6>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#buatSO">
+            Buat Sales Order
         </button>
     </div>
     <div class="card-body">
@@ -24,54 +24,64 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Nama Satuan</th>
-                        <th>Deskripsi Satuan</th>
+                        <th>Nama Pembeli</th>
+                        <th>tanggal Pembuatan</th>
+                        <th>Total Harga</th>
+                        <th>Status</th>
+                        <th>Nama Petugas</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($satuans as $satuan)
+                    @forelse ($salesOrders as $so)
                         <tr>
-                            <td>{{ $satuan->nama }}</td>
-                            <td>{{ $satuan->deskripsi }}</td>
+                            <td>{{ $so->pembeli->nama_pembeli }}</td>
+                            <td>{{ $so->tanggal_so }}</td>
+                            <td>Rp {{ number_format($so->total_harga, 0, ',', '.') }}</td>
+                            <td>
+                                <div class="text-capitalize btn btn-info badge text-center py-1">
+                                    {{ $so->status }}
+                                </div>
+                            </td>
+                            <td>{{ $so->pengguna->nama_pengguna }}</td>
                             <td class="d-flex justify-content-center align-items-center">
-                                <button wire:click='edit({{ $satuan->id }})' class="btn btn-success mr-1 btn-sm"
-                                    data-toggle="modal" data-target="#editSatuan">
+                                <button wire:click='$dispatch("editSO", {id: {{ $so->id }}})'
+                                    class="btn btn-success mr-1 btn-sm" data-toggle="modal" data-target="#editSO">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <a href="/satuan/hapus/{{ $satuan->id }}" class="btn btn-danger btn-sm">
+                                <a href="/so/hapus/{{ $so->id }}" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3">
-                                <p class="text-center">Data Satuan Tidak Ditemukan</p>
+                            <td colspan="6">
+                                <h6 class="text-center">Data Sales Order Tidak Ditemukan</h6>
                             </td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
-            {{ $satuans->links() }}
+            {{ $salesOrders->links() }}
         </div>
     </div>
 
     {{-- ! create modal --}}
-    <x-satuan.form-modal id="tambahSatuan" title="Tambah Satuan" rightBtn="Simpan" event="store" />
+    <livewire:components.so.form-modal id="buatSO" title="Buat Sales Order" rightBtn="Buat" event="store" />
     {{-- ! create modal --}}
 
     {{-- * edit modal --}}
-    <x-satuan.form-modal id="editSatuan" title="Edit Satuan" rightBtn="Ubah" event="update" />
+    <livewire:components.so.form-modal id="editSO" title="Edit Barang" rightBtn="Ubah" event="update" />
     {{-- * edit modal --}}
 
     @script
         <script>
             $wire.on('closeCreateModal', () => {
-                $('#tambahSatuan').modal('hide');
+                $('#buatSO').modal('hide');
                 Swal.fire({
                     title: "Suksess!",
-                    text: "Data Satuan Berhasil Ditambahkan",
+                    text: "Sales Order Berhasil Dibuat",
                     icon: "success"
                 });
             })
@@ -79,11 +89,18 @@
     @endscript
     @script
         <script>
+            $('#buatSO').on('hidden.bs.modal', function() {
+                Livewire.dispatch('closeCreateModal')
+            })
+        </script>
+    @endscript
+    @script
+        <script>
             $wire.on('closeEditModal', () => {
-                $('#editSatuan').modal('hide');
+                $('#editSO').modal('hide');
                 Swal.fire({
                     title: "Suksess!",
-                    text: "Data Satuan Berhasil Diubah",
+                    text: "Sales Order Berhasil Diubah",
                     icon: "success"
                 });
             })

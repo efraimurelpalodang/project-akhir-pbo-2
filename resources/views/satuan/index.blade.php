@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Data Satuan')
 @section('menuDataPengguna', 'active')
 @section('content')
     @livewire('satuan.index')

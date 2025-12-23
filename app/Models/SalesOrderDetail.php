@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SalesOrderDetail extends Model
 {
-    protected $fillable = ['so_id','barang_id','jumlah'];
+    protected $fillable = ['so_id','barang_id','jumlah','harga_satuan'];
 
     public function so():BelongsTo
     {

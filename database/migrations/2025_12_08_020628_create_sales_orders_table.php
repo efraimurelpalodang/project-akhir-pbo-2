@@ -22,7 +22,8 @@ return new class extends Migration
                 indexName: 'so_pengguna_id'
             );
             $table->date('tanggal_so');
-            $table->enum('status', ['menunggu','proses persiapan', 'selesai persiapan', 'dikirim']);
+            $table->enum('status', ['menunggu', 'proses_persiapan', 'siap_kirim', 'dikirim'])->default('menunggu');
+            $table->decimal('total_harga', 15, 2); 
             $table->timestamps();
         });
     }

@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SalesOrder extends Model
 {
-    protected $fillable = ['transaksi_id','pengguna_id','tanggal_so','status'];
+    protected $fillable = ['pembeli_id','transaksi_id','pengguna_id','tanggal_so','status','total_harga'];
 
-    public function transaksi(): BelongsTo
+    public function pembeli(): BelongsTo
     {
-        return $this->belongsTo(transaksiPenjualan::class);
+        return $this->belongsTo(Pembeli::class);
     }
 
     public function pengguna(): BelongsTo
@@ -20,9 +20,9 @@ class SalesOrder extends Model
         return $this->belongsTo(pengguna::class);
     }
 
-    public function soDetail(): HasMany
+    public function details(): HasMany
     {
-        return $this->hasMany(salesOrderDetail::class);
+        return $this->hasMany(salesOrderDetail::class, 'so_id');
     }
 
     public function sj(): BelongsTo

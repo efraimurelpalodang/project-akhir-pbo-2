@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Data Peran')
 @section('menuDataPengguna', 'active')
 @section('content')
     @livewire('superadmin.peran.index')

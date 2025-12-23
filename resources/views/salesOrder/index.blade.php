@@ -1,8 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Data Pembeli')
-@section('menuDataPengguna', 'active')
-@section('content')
-    @livewire('pembeli.index')
+@section('title','Sales Order')
+@section('content') 
+    @livewire('salesOrder.index')
 @endsection
 @push('styles')
     <link href="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
