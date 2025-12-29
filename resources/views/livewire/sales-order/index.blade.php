@@ -43,7 +43,7 @@
                                     {{ $so->status }}
                                 </div>
                             </td>
-                            <td>{{ $so->pengguna->nama_pengguna }}</td>
+                            <td>{{ $so->petugas->nama_pengguna }}</td>
                             <td class="d-flex justify-content-center align-items-center">
                                 <button wire:click='$dispatch("viewSO", {id: {{ $so->id }}})'
                                     class="btn btn-info mr-1 btn-sm" data-toggle="modal" data-target="#detailSO">

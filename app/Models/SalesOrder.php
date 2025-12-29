@@ -15,9 +15,9 @@ class SalesOrder extends Model
         return $this->belongsTo(Pembeli::class);
     }
 
-    public function pengguna(): BelongsTo
+    public function petugas(): BelongsTo
     {
-        return $this->belongsTo(pengguna::class);
+        return $this->belongsTo(pengguna::class, 'pengguna_id');
     }
 
     public function details(): HasMany
