@@ -52,7 +52,7 @@
                     @empty
                         <tr>
                             <td colspan="6">
-                                <h6 class="text-center">Data Sales Order Tidak Ditemukan</h6>
+                                <h6 class="text-center">Data Sales Order Masuk Tidak Ditemukan</h6>
                             </td>
                         </tr>
                     @endforelse
@@ -62,26 +62,10 @@
         </div>
     </div>
 
-    {{-- ! create modal --}}
-    <livewire:components.so.form-modal id="buatSO" title="Buat Sales Order" rightBtn="Buat" event="store" />
-    {{-- ! create modal --}}
+    {{-- * detail modal --}}
+    <livewire:components.so.approve id="detailSO" title="Detail Sales Order Masuk" event="update" />
+    {{-- * detail modal --}}
 
-    {{-- * edit modal --}}
-    <livewire:components.so.form-modal id="detailSO" title="Edit Barang" rightBtn="Ubah" event="update" />
-    {{-- * edit modal --}}
-
-    @script
-        <script>
-            $wire.on('closeCreateModal', () => {
-                $('#buatSO').modal('hide');
-                Swal.fire({
-                    title: "Suksess!",
-                    text: "Sales Order Berhasil Dibuat",
-                    icon: "success"
-                });
-            })
-        </script>
-    @endscript
     @script
         <script>
             $('#buatSO').on('hidden.bs.modal', function() {

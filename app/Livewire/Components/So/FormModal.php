@@ -24,6 +24,7 @@ class FormModal extends Component
     public $so_id = null;
     public $tanggal_so;
     public $status = 'menunggu';
+    public $mode = 'view'; 
     
     // Items
     public $items = [];
@@ -84,12 +85,8 @@ class FormModal extends Component
         $this->pembeliSuggestions = [];
     }
 
-    // Barang Autocomplete
-    // Method ini otomatis dipanggil saat items berubah
     public function updatedItems($value, $key)
     {
-        // Parse key untuk dapetin index dan field
-        // Format key: "0.barang_nama" atau "1.jumlah"
         $parts = explode('.', $key);
         
         if (count($parts) !== 2) {
@@ -99,7 +96,6 @@ class FormModal extends Component
         $index = (int) $parts[0];
         $field = $parts[1];
 
-        // Cuma proses kalau yang diubah adalah barang_nama
         if ($field !== 'barang_nama') {
             return;
         }
@@ -110,19 +106,16 @@ class FormModal extends Component
 
         $barangNama = $this->items[$index]['barang_nama'] ?? '';
 
-        // Reset barang_id jika user mengubah input
         if ($this->items[$index]['barang_id'] ?? null) {
             $this->items[$index]['barang_id'] = null;
             $this->items[$index]['harga_satuan'] = 0;
         }
 
-        // Kalau kosong, clear suggestions
         if (empty($barangNama) || strlen($barangNama) < 1) {
             $this->items[$index]['suggestions'] = [];
             return;
         }
 
-        // Cari barang
         $results = Barang::where('nama_barang', 'like', '%' . $barangNama . '%')
             ->limit(5)
             ->get();
@@ -130,7 +123,6 @@ class FormModal extends Component
         $this->items[$index]['suggestions'] = $results->toArray();
     }
 
-    // Backup method kalau mau panggil manual
     public function cariBarang($index, $value)
     {   
         if (!array_key_exists($index, $this->items)) {
@@ -164,7 +156,6 @@ class FormModal extends Component
         
         $barang = Barang::find($id);
         
-        // Langsung isi ke variable, gak perlu nunggu submit
         $this->items[$index]['barang_id'] = $id;
         $this->items[$index]['barang_nama'] = $nama;
         $this->items[$index]['harga_satuan'] = $barang->harga_jual ?? 0;
@@ -172,11 +163,9 @@ class FormModal extends Component
         
         $this->resetErrorBag('items.' . $index . '.barang_id');
         
-        // Event untuk Alpine.js update input
         $this->dispatch('barang-dipilih-' . $index, nama: $nama);
     }
 
-    // Computed property untuk grand total
     public function getGrandTotalProperty()
     {
         $total = 0;
@@ -286,7 +275,6 @@ class FormModal extends Component
 
             DB::commit();
 
-            session()->flash('message', 'Sales Order berhasil diupdate!');
             $this->resetForm();
             $this->dispatch('closeEditModal');
             $this->dispatch('refresh-table');
@@ -369,10 +357,7 @@ class FormModal extends Component
     {
         return view('livewire.components.so.form-modal');
     }
-
-     public $mode = 'view'; // 'create', 'view', 'edit'
     
-    // Untuk buka modal CREATE (tambah baru)
     public function openCreateMode()
     {
         $this->reset(['pembeli_nama', 'pembeli_id', 'tanggal_so', 'items']);
@@ -401,7 +386,6 @@ class FormModal extends Component
             ];
         })->toArray();
         
-        // Simpan data asli
         $this->originalData = [
             'pembeli_nama' => $this->pembeli_nama,
             'pembeli_id' => $this->pembeli_id,
@@ -412,7 +396,6 @@ class FormModal extends Component
         $this->mode = 'view';
     }
     
-    // Enable edit mode
     public function enableEditMode()
     {
         $this->mode = 'edit';
@@ -432,15 +415,8 @@ class FormModal extends Component
     // Simpan perubahan (untuk edit)
     public function simpanPerubahan()
     {
-        $this->validate([
-            'pembeli_id' => 'required',
-            'tanggal_so' => 'required|date',
-            'items.*.barang_id' => 'required',
-            'items.*.jumlah' => 'required|min:1',
-        ]);
-        
-        // Update logic...
-        
+        $this->validate();
+
         $this->mode = 'view';
         $this->dispatch('closeModal');
     }

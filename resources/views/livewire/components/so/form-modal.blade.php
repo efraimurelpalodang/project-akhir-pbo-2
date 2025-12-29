@@ -213,7 +213,7 @@
                     Batal
                 </button>
                 <button wire:click="simpanPerubahan" type="button" class="btn btn-primary">
-                    <i class="fas fa-save mr-1"></i> Simpan Perubahan
+                    Simpan Perubahan
                 </button>
             @else
                 <!-- Tombol saat mode Create -->
@@ -221,7 +221,7 @@
                     Batal
                 </button>
                 <button wire:click="store" type="button" class="btn btn-primary">
-                    <i class="fas fa-plus mr-1"></i> Buat Sales Order
+                    Buat Sales Order
                 </button>
             @endif
         </x-slot:footer>
