@@ -43,7 +43,7 @@
             <div class="collapse-inner rounded">
                 <a wire:navigate class="collapse-item text-white" href="/salesOrder">Daftar Sales Order</a>
                 <a wire:navigate class="collapse-item text-white" href="cards.html">Riwayat Sales Order</a>
-                <a wire:navigate class="collapse-item text-white" href="cards.html">Sales Order Masuk</a>
+                <a wire:navigate class="collapse-item text-white" href="/SOMasuk">Sales Order Masuk</a>
                 <a wire:navigate class="collapse-item text-white" href="cards.html">Siap Diantar</a>
             </div>
         </div>

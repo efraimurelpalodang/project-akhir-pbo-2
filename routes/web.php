@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoginController::class, 'index']);
 Route::view('/dashboard','dashboard')->name('dashboard');
 Route::view('/salesOrder','salesOrder.index')->name('salesOrder.index');
+Route::view('/SOMasuk','salesOrder.masuk')->name('salesOrder.masuk');
 Route::view('/pembeli', 'pembeli.index')->name('pembeli.index');
 Route::view('/superadmin/user', 'superadmin.user.index')->name('superadmin.user.index');
 Route::view('/superadmin/peran', 'superadmin.peran.index')->name('superadmin.peran.index');

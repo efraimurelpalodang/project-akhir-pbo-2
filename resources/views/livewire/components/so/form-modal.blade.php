@@ -73,7 +73,6 @@
         <h6 class="font-weight-bold mb-3">Detail Barang</h6>
 
         @if ($mode !== 'view')
-            <!-- MODE CREATE/EDIT -->
             <div class="table-responsive">
                 <table class="table table-bordered table-sm">
                     <thead class="bg-light">
@@ -118,8 +117,6 @@
                                         @enderror
                                     </div>
                                 </td>
-
-                                <!-- Jumlah -->
                                 <td>
                                     <input type="number" wire:model.live="items.{{ $i }}.jumlah"
                                         class="form-control form-control-sm text-center {{ $errors->has('items.' . $i . '.jumlah') ? 'is-invalid' : '' }}"
@@ -128,15 +125,11 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </td>
-
-                                <!-- Harga Satuan -->
                                 <td>
                                     <input type="text"
                                         value="Rp {{ number_format($item['harga_satuan'] ?? 0, 0, ',', '.') }}"
                                         class="form-control form-control-sm bg-light" readonly>
                                 </td>
-
-                                <!-- Tombol Hapus -->
                                 <td class="text-center">
                                     @if (count($items) > 1)
                                         <button type="button" class="btn btn-danger btn-sm"
@@ -152,13 +145,10 @@
                     </tbody>
                 </table>
             </div>
-
-            <!-- Tombol Tambah Barang -->
             <button type="button" class="btn btn-success btn-sm mt-2" wire:click="tambahItem">
                 <i class="fas fa-plus mr-1"></i> Tambah Barang
             </button>
         @else
-            <!-- MODE VIEW -->
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead class="bg-light">
