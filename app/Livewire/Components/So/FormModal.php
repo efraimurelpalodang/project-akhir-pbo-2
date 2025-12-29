@@ -12,29 +12,27 @@ use Illuminate\Support\Facades\Log;
 
 class FormModal extends Component
 {
-    public $id, $title, $rightBtn, $event, $pembelis;
+    public $id, $title, $rightBtn, $event;
     
     // Pembeli
     public $pembeli_nama = '';
     public $pembeli_id = null;
     public $pembeliSuggestions = [];
-    public $originalData = [];
     
     // Sales Order
     public $so_id = null;
     public $tanggal_so;
     public $status = 'menunggu';
-    public $mode = 'view'; 
+    public $mode = 'create'; // create, edit, view
     
     // Items
     public $items = [];
     
     protected $listeners = [
-        'resetForm' => 'resetForm',
-        'closeCreateModal' => 'resetForm',
-        'editSO' => 'edit', 
-        'viewSO' => 'loadDetailSO',
         'createSO' => 'openCreateMode',
+        'editSO' => 'openEditMode', 
+        'viewSO' => 'openViewMode',
+        'resetForm' => 'resetForm',
     ];
 
     protected function rules()
@@ -64,7 +62,7 @@ class FormModal extends Component
         ];
     }
 
-    // Pembeli Autocomplete
+    // ========== PEMBELI AUTOCOMPLETE ==========
     public function updatedPembeliNama()
     {
         if (strlen($this->pembeli_nama) < 1) {
@@ -85,25 +83,26 @@ class FormModal extends Component
         $this->pembeliSuggestions = [];
     }
 
+    // ========== BARANG AUTOCOMPLETE ==========
     public function updatedItems($value, $key)
     {
         $parts = explode('.', $key);
         
-        if (count($parts) !== 2) {
+        if (count($parts) !== 2 || $parts[1] !== 'barang_nama') {
             return;
         }
 
         $index = (int) $parts[0];
-        $field = $parts[1];
-
-        if ($field !== 'barang_nama') {
-            return;
-        }
 
         if (!array_key_exists($index, $this->items)) {
             return;
         }
 
+        $this->updateBarangSuggestions($index);
+    }
+
+    private function updateBarangSuggestions($index)
+    {
         $barangNama = $this->items[$index]['barang_nama'] ?? '';
 
         if ($this->items[$index]['barang_id'] ?? null) {
@@ -117,31 +116,6 @@ class FormModal extends Component
         }
 
         $results = Barang::where('nama_barang', 'like', '%' . $barangNama . '%')
-            ->limit(5)
-            ->get();
-
-        $this->items[$index]['suggestions'] = $results->toArray();
-    }
-
-    public function cariBarang($index, $value)
-    {   
-        if (!array_key_exists($index, $this->items)) {
-            return;
-        }
-
-        $this->items[$index]['barang_nama'] = $value;
-
-        if ($this->items[$index]['barang_id'] ?? null) {
-            $this->items[$index]['barang_id'] = null;
-            $this->items[$index]['harga_satuan'] = 0;
-        }
-
-        if (empty($value) || strlen($value) < 1) {
-            $this->items[$index]['suggestions'] = [];
-            return;
-        }
-
-        $results = Barang::where('nama_barang', 'like', '%' . $value . '%')
             ->limit(5)
             ->get();
 
@@ -162,10 +136,34 @@ class FormModal extends Component
         $this->items[$index]['suggestions'] = [];
         
         $this->resetErrorBag('items.' . $index . '.barang_id');
-        
-        $this->dispatch('barang-dipilih-' . $index, nama: $nama);
     }
 
+    // ========== ITEMS MANAGEMENT ==========
+    public function tambahItem()
+    {
+        $this->items[] = [
+            'barang_id' => null,
+            'barang_nama' => '',
+            'jumlah' => 1,
+            'harga_satuan' => 0,
+            'suggestions' => [],
+        ];
+    }
+
+    public function hapusItem($index)
+    {
+        if (count($this->items) <= 1) {
+            session()->flash('error', 'Minimal harus ada 1 barang!');
+            return;
+        }
+
+        if (array_key_exists($index, $this->items)) {
+            unset($this->items[$index]);
+            $this->items = array_values($this->items);
+        }
+    }
+
+    // ========== COMPUTED PROPERTY ==========
     public function getGrandTotalProperty()
     {
         $total = 0;
@@ -177,6 +175,7 @@ class FormModal extends Component
         return $total;
     }
 
+    // ========== CRUD OPERATIONS ==========
     public function store()
     {
         $this->validate();
@@ -204,9 +203,9 @@ class FormModal extends Component
             DB::commit();
 
             session()->flash('message', 'Sales Order berhasil dibuat!');
-            $this->resetForm();
-            $this->dispatch('closeCreateModal');
+            $this->dispatch('closeModal');
             $this->dispatch('refresh-table');
+            $this->resetForm();
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             DB::rollBack();
@@ -218,39 +217,11 @@ class FormModal extends Component
         }
     }
 
-    public function edit($id)
-    {
-        $this->resetForm();
-        
-        $so = SalesOrder::with('pembeli', 'details.barang')->findOrFail($id);
-        
-        // Langsung isi variable 
-        $this->so_id = $so->id;
-        $this->pembeli_id = $so->pembeli_id;
-        $this->pembeli_nama = $so->pembeli->nama_pembeli;
-        $this->tanggal_so = $so->tanggal_so;
-        $this->status = $so->status;
-
-        // Isi items dari detail
-        $this->items = [];
-        foreach ($so->details as $detail) {
-            $this->items[] = [
-                'barang_id' => $detail->barang_id,
-                'barang_nama' => $detail->barang->nama_barang,
-                'jumlah' => $detail->jumlah,
-                'harga_satuan' => $detail->harga_satuan,
-                'suggestions' => [],
-            ];
-        }
-    }
-
     public function update()
     {
-        try {
-            $this->resetValidation();
-            
-            $this->validate();
+        $this->validate();
 
+        try {
             DB::beginTransaction();
 
             $so = SalesOrder::findOrFail($this->so_id);
@@ -275,8 +246,9 @@ class FormModal extends Component
 
             DB::commit();
 
-            $this->resetForm();
-            $this->dispatch('closeEditModal');
+            session()->flash('message', 'Sales Order berhasil diupdate!');
+            $this->mode = 'view';
+            $this->dispatch('closeModal');
             $this->dispatch('refresh-table');
 
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -289,44 +261,59 @@ class FormModal extends Component
         }
     }
 
-    // Item Management
-    public function tambahItem()
+    // ========== MODE MANAGEMENT ==========
+    public function openCreateMode()
     {
-        $this->items[] = [
-            'barang_id' => null,
-            'barang_nama' => '',
-            'jumlah' => 1,
-            'harga_satuan' => 0,
-            'suggestions' => [],
-        ];
-    }
-
-    public function hapusItem($index)
-    {
-        if (count($this->items) <= 1) {
-            session()->flash('error', 'Minimal harus ada 1 barang!');
-            return;
-        }
-
-        if (array_key_exists($index, $this->items)) {
-            unset($this->items[$index]);
-            $this->items = array_values($this->items);
-        }
-    }
-
-    // Lifecycle
-    public function mount($id = '', $title = '', $rightBtn = '', $event = '', $pembelis = [])
-    {
-        $this->id = $id;
-        $this->title = $title;
-        $this->rightBtn = $rightBtn;
-        $this->event = $event;
-        $this->pembelis = $pembelis;
+        $this->resetForm();
+        $this->mode = 'create';
         $this->tanggal_so = now()->format('Y-m-d');
-        $this->initItems();
     }
 
-    public function initItems()
+    public function openEditMode($id)
+    {
+        $this->loadSalesOrder($id);
+        $this->mode = 'edit';
+    }
+    
+    public function openViewMode($id)
+    {
+        $this->loadSalesOrder($id);
+        $this->mode = 'view';
+    }
+
+    public function enableEditMode()
+    {
+        $this->mode = 'edit';
+    }
+    
+    public function cancelEdit()
+    {
+        $this->loadSalesOrder($this->so_id);
+        $this->mode = 'view';
+    }
+
+    private function loadSalesOrder($id)
+    {
+        $so = SalesOrder::with('pembeli', 'details.barang')->findOrFail($id);
+        
+        $this->so_id = $so->id;
+        $this->pembeli_id = $so->pembeli_id;
+        $this->pembeli_nama = $so->pembeli->nama_pembeli;
+        $this->tanggal_so = $so->tanggal_so;
+        $this->status = $so->status;
+
+        $this->items = $so->details->map(function($detail) {
+            return [
+                'barang_id' => $detail->barang_id,
+                'barang_nama' => $detail->barang->nama_barang,
+                'jumlah' => $detail->jumlah,
+                'harga_satuan' => $detail->harga_satuan,
+                'suggestions' => [],
+            ];
+        })->toArray();
+    }
+
+    private function initItems()
     {
         $this->items = [
             [
@@ -350,6 +337,17 @@ class FormModal extends Component
             'tanggal_so',
         ]);
         $this->status = 'menunggu';
+        $this->mode = 'create';
+        $this->initItems();
+    }
+
+    public function mount($id = '', $title = '', $rightBtn = '', $event = '')
+    {
+        $this->id = $id;
+        $this->title = $title;
+        $this->rightBtn = $rightBtn;
+        $this->event = $event;
+        $this->tanggal_so = now()->format('Y-m-d');
         $this->initItems();
     }
 
@@ -357,68 +355,4 @@ class FormModal extends Component
     {
         return view('livewire.components.so.form-modal');
     }
-    
-    public function openCreateMode()
-    {
-        $this->reset(['pembeli_nama', 'pembeli_id', 'tanggal_so', 'items']);
-        $this->mode = 'create';
-        $this->items = [
-            ['barang_id' => null, 'barang_nama' => '', 'jumlah' => 1, 'harga_satuan' => 0, 'suggestions' => []]
-        ];
-    }
-    
-    // Untuk buka modal VIEW (detail)
-    public function loadDetailSO($id)
-    {
-        $so = SalesOrder::with(['pembeli', 'details.barang'])->find($id);
-        
-        $this->pembeli_nama = $so->pembeli->nama_pembeli;
-        $this->pembeli_id = $so->pembeli_id;
-        $this->tanggal_so = $so->tanggal_so;
-        
-        $this->items = $so->details->map(function($detail) {
-            return [
-                'barang_id' => $detail->barang_id,
-                'barang_nama' => $detail->barang->nama_barang,
-                'jumlah' => $detail->jumlah,
-                'harga_satuan' => $detail->harga_satuan,
-                'suggestions' => []
-            ];
-        })->toArray();
-        
-        $this->originalData = [
-            'pembeli_nama' => $this->pembeli_nama,
-            'pembeli_id' => $this->pembeli_id,
-            'tanggal_so' => $this->tanggal_so,
-            'items' => $this->items
-        ];
-        
-        $this->mode = 'view';
-    }
-    
-    public function enableEditMode()
-    {
-        $this->mode = 'edit';
-    }
-    
-    // Batalkan edit
-    public function batalEdit()
-    {
-        $this->pembeli_nama = $this->originalData['pembeli_nama'];
-        $this->pembeli_id = $this->originalData['pembeli_id'];
-        $this->tanggal_so = $this->originalData['tanggal_so'];
-        $this->items = $this->originalData['items'];
-        
-        $this->mode = 'view';
-    }
-    
-    // Simpan perubahan (untuk edit)
-    public function simpanPerubahan()
-    {
-        $this->validate();
-
-        $this->mode = 'view';
-        $this->dispatch('closeModal');
-    }
-    
 }

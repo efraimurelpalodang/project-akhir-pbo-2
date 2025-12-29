@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label class="font-weight-bold">
                         Nama Pembeli
-                        @if($mode !== 'view')
+                        @if ($mode !== 'view')
                             <sup class="text-danger">*</sup>
                         @endif
                     </label>
@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label class="font-weight-bold">
                         Tanggal SO
-                        @if($mode !== 'view')
+                        @if ($mode !== 'view')
                             <sup class="text-danger">*</sup>
                         @endif
                     </label>
@@ -73,6 +73,7 @@
         <h6 class="font-weight-bold mb-3">Detail Barang</h6>
 
         @if ($mode !== 'view')
+            <!-- Mode Create/Edit: Table dengan Input -->
             <div class="table-responsive">
                 <table class="table table-bordered table-sm">
                     <thead class="bg-light">
@@ -104,7 +105,8 @@
                                                         <div class="d-flex justify-content-between">
                                                             <span>{{ $b['nama_barang'] }}</span>
                                                             <small class="text-muted">
-                                                                Rp {{ number_format($b['harga_jual'] ?? 0, 0, ',', '.') }}
+                                                                Rp
+                                                                {{ number_format($b['harga_jual'] ?? 0, 0, ',', '.') }}
                                                             </small>
                                                         </div>
                                                     </a>
@@ -117,6 +119,8 @@
                                         @enderror
                                     </div>
                                 </td>
+
+                                <!-- Jumlah -->
                                 <td>
                                     <input type="number" wire:model.live="items.{{ $i }}.jumlah"
                                         class="form-control form-control-sm text-center {{ $errors->has('items.' . $i . '.jumlah') ? 'is-invalid' : '' }}"
@@ -125,11 +129,15 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </td>
+
+                                <!-- Harga Satuan -->
                                 <td>
                                     <input type="text"
                                         value="Rp {{ number_format($item['harga_satuan'] ?? 0, 0, ',', '.') }}"
                                         class="form-control form-control-sm bg-light" readonly>
                                 </td>
+
+                                <!-- Aksi -->
                                 <td class="text-center">
                                     @if (count($items) > 1)
                                         <button type="button" class="btn btn-danger btn-sm"
@@ -145,10 +153,12 @@
                     </tbody>
                 </table>
             </div>
+
             <button type="button" class="btn btn-success btn-sm mt-2" wire:click="tambahItem">
                 <i class="fas fa-plus mr-1"></i> Tambah Barang
             </button>
         @else
+            <!-- Mode View: Table Read-only -->
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead class="bg-light">
@@ -166,10 +176,12 @@
                                 <td class="text-center">{{ $i + 1 }}</td>
                                 <td>{{ $item['barang_nama'] ?? '-' }}</td>
                                 <td class="text-center">{{ $item['jumlah'] ?? 0 }}</td>
-                                <td class="text-right">Rp {{ number_format($item['harga_satuan'] ?? 0, 0, ',', '.') }}
+                                <td class="text-right">
+                                    Rp {{ number_format($item['harga_satuan'] ?? 0, 0, ',', '.') }}
                                 </td>
                                 <td class="text-right font-weight-bold">
-                                    Rp {{ number_format(($item['jumlah'] ?? 0) * ($item['harga_satuan'] ?? 0), 0, ',', '.') }}
+                                    Rp
+                                    {{ number_format(($item['jumlah'] ?? 0) * ($item['harga_satuan'] ?? 0), 0, ',', '.') }}
                                 </td>
                             </tr>
                         @empty
@@ -198,30 +210,30 @@
             </div>
         </div>
 
+        <!-- Footer Buttons -->
         <x-slot:footer>
             @if ($mode === 'view')
-                <!-- Tombol saat mode View -->
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                     Tutup
                 </button>
-                <button type="button" class="btn btn-warning" wire:click="enableEditMode">
-                    <i class="fas fa-edit mr-1"></i> Edit
-                </button>
+                @if ($status === 'menunggu')
+                    <button type="button" class="btn btn-warning" wire:click="enableEditMode">
+                        <i class="fas fa-edit mr-1"></i> Edit
+                    </button>
+                @endif
             @elseif ($mode === 'edit')
-                <!-- Tombol saat mode Edit -->
-                <button type="button" class="btn btn-secondary" wire:click="batalEdit">
+                <button type="button" class="btn btn-secondary" wire:click="cancelEdit">
                     Batal
                 </button>
-                <button wire:click="simpanPerubahan" type="button" class="btn btn-primary">
-                    Simpan Perubahan
+                <button type="button" class="btn btn-primary" wire:click="update">
+                    <i class="fas fa-save mr-1"></i> Simpan Perubahan
                 </button>
             @else
-                <!-- Tombol saat mode Create -->
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                     Batal
                 </button>
-                <button wire:click="store" type="button" class="btn btn-primary">
-                    Buat Sales Order
+                <button type="button" class="btn btn-primary" wire:click="store">
+                    <i class="fas fa-check mr-1"></i> Buat Sales Order
                 </button>
             @endif
         </x-slot:footer>
