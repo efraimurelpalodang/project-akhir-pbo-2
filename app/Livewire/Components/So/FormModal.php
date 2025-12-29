@@ -18,6 +18,7 @@ class FormModal extends Component
     public $pembeli_nama = '';
     public $pembeli_id = null;
     public $pembeliSuggestions = [];
+    public $originalData = [];
     
     // Sales Order
     public $so_id = null;
@@ -31,6 +32,8 @@ class FormModal extends Component
         'resetForm' => 'resetForm',
         'closeCreateModal' => 'resetForm',
         'editSO' => 'edit', 
+        'viewSO' => 'loadDetailSO',
+        'createSO' => 'openCreateMode',
     ];
 
     protected function rules()
@@ -366,4 +369,80 @@ class FormModal extends Component
     {
         return view('livewire.components.so.form-modal');
     }
+
+     public $mode = 'view'; // 'create', 'view', 'edit'
+    
+    // Untuk buka modal CREATE (tambah baru)
+    public function openCreateMode()
+    {
+        $this->reset(['pembeli_nama', 'pembeli_id', 'tanggal_so', 'items']);
+        $this->mode = 'create';
+        $this->items = [
+            ['barang_id' => null, 'barang_nama' => '', 'jumlah' => 1, 'harga_satuan' => 0, 'suggestions' => []]
+        ];
+    }
+    
+    // Untuk buka modal VIEW (detail)
+    public function loadDetailSO($id)
+    {
+        $so = SalesOrder::with(['pembeli', 'details.barang'])->find($id);
+        
+        $this->pembeli_nama = $so->pembeli->nama_pembeli;
+        $this->pembeli_id = $so->pembeli_id;
+        $this->tanggal_so = $so->tanggal_so;
+        
+        $this->items = $so->details->map(function($detail) {
+            return [
+                'barang_id' => $detail->barang_id,
+                'barang_nama' => $detail->barang->nama_barang,
+                'jumlah' => $detail->jumlah,
+                'harga_satuan' => $detail->harga_satuan,
+                'suggestions' => []
+            ];
+        })->toArray();
+        
+        // Simpan data asli
+        $this->originalData = [
+            'pembeli_nama' => $this->pembeli_nama,
+            'pembeli_id' => $this->pembeli_id,
+            'tanggal_so' => $this->tanggal_so,
+            'items' => $this->items
+        ];
+        
+        $this->mode = 'view';
+    }
+    
+    // Enable edit mode
+    public function enableEditMode()
+    {
+        $this->mode = 'edit';
+    }
+    
+    // Batalkan edit
+    public function batalEdit()
+    {
+        $this->pembeli_nama = $this->originalData['pembeli_nama'];
+        $this->pembeli_id = $this->originalData['pembeli_id'];
+        $this->tanggal_so = $this->originalData['tanggal_so'];
+        $this->items = $this->originalData['items'];
+        
+        $this->mode = 'view';
+    }
+    
+    // Simpan perubahan (untuk edit)
+    public function simpanPerubahan()
+    {
+        $this->validate([
+            'pembeli_id' => 'required',
+            'tanggal_so' => 'required|date',
+            'items.*.barang_id' => 'required',
+            'items.*.jumlah' => 'required|min:1',
+        ]);
+        
+        // Update logic...
+        
+        $this->mode = 'view';
+        $this->dispatch('closeModal');
+    }
+    
 }

@@ -1,7 +1,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Daftar Sales Order</h6>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#buatSO">
+        <button class="btn btn-primary" wire:click="$dispatch('createSO')" data-toggle="modal" data-target="#buatSO">
             Buat Sales Order
         </button>
     </div>
@@ -45,9 +45,9 @@
                             </td>
                             <td>{{ $so->pengguna->nama_pengguna }}</td>
                             <td class="d-flex justify-content-center align-items-center">
-                                <button wire:click='$dispatch("editSO", {id: {{ $so->id }}})'
-                                    class="btn btn-success mr-1 btn-sm" data-toggle="modal" data-target="#editSO">
-                                    <i class="fas fa-edit"></i>
+                                <button wire:click='$dispatch("viewSO", {id: {{ $so->id }}})'
+                                    class="btn btn-info mr-1 btn-sm" data-toggle="modal" data-target="#detailSO">
+                                    <i class="fas fa-eye"></i>
                                 </button>
                                 <a href="/so/hapus/{{ $so->id }}" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash"></i>
@@ -72,7 +72,7 @@
     {{-- ! create modal --}}
 
     {{-- * edit modal --}}
-    <livewire:components.so.form-modal id="editSO" title="Edit Barang" rightBtn="Ubah" event="update" />
+    <livewire:components.so.form-modal id="detailSO" title="Edit Barang" rightBtn="Ubah" event="update" />
     {{-- * edit modal --}}
 
     @script
