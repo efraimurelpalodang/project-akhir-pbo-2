@@ -31,6 +31,7 @@
                         <th>Nama Pembeli</th>
                         <th>tanggal Pembuatan</th>
                         <th>Total Harga</th>
+                        <th>Status</th>
                         <th>Nama Petugas</th>
                         <th>Aksi</th>
                     </tr>
@@ -41,6 +42,11 @@
                             <td>{{ $so->pembeli->nama_pembeli }}</td>
                             <td>{{ $so->tanggal_so }}</td>
                             <td>Rp {{ number_format($so->total_harga, 0, ',', '.') }}</td>
+                            <td>
+                                <div class="badge text-capitalize btn btn-{{ $so->badge_color }}">
+                                    {{ ucfirst($so->badge_text) }}
+                                </div>
+                            </td>
                             <td>{{ $so->petugas->nama_pengguna }}</td>
                             <td class="d-flex justify-content-center align-items-center">
                                 <button wire:click='$dispatch("viewSO", {id: {{ $so->id }}})'

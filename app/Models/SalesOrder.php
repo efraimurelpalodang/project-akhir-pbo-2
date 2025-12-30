@@ -10,6 +10,29 @@ class SalesOrder extends Model
 {
     protected $fillable = ['pembeli_id','transaksi_id','pengguna_id','tanggal_so','status','total_harga'];
 
+    public function getBadgeColorAttribute()
+    {
+        return match($this->status) {
+            'proses_persiapan' => 'warning',
+            'menunggu'         => 'info',
+            'siap_kirim'       => 'success',
+            'dikirim'          => 'secondary',
+            default            => 'danger',
+        };
+    }
+
+    public function getBadgeTextAttribute()
+    {
+        return match($this->status) {
+            'proses_persiapan' => 'Proses Persiapan',
+            'menunggu'         => 'Menunggu',
+            'siap_kirim'       => 'Selesai Penyiapan',
+            'dikirim'          => 'Barang Dikirim',
+            'batal'            => 'Dibatalkan',
+            default            => 'kosong',
+        };
+    }
+
     public function pembeli(): BelongsTo
     {
         return $this->belongsTo(Pembeli::class);

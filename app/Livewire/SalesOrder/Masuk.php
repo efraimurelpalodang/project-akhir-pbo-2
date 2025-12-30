@@ -13,12 +13,14 @@ class Masuk extends Component
             $filter = 'penguna_id',
             $search = '';
 
+    public $color = 'info';
+
     #[On('refresh-table')]
     public function refreshTable(){}
 
     public function render()
     {
-        $query = SalesOrder::where('status', 'menunggu');
+        $query = SalesOrder::where('status', 'menunggu')->orWhere('status','proses_persiapan');
 
         if ($this->search !== '') {
             if ($this->filter === 'penguna_id') {

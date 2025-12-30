@@ -39,8 +39,8 @@
                             <td>{{ $so->tanggal_so }}</td>
                             <td>Rp {{ number_format($so->total_harga, 0, ',', '.') }}</td>
                             <td>
-                                <div class="text-capitalize btn btn-info badge text-center py-1">
-                                    {{ $so->status }}
+                                <div class="badge text-capitalize btn btn-{{ $so->badge_color }}">
+                                    {{ ucfirst($so->badge_text) }}
                                 </div>
                             </td>
                             <td>{{ $so->petugas->nama_pengguna }}</td>
@@ -49,9 +49,11 @@
                                     class="btn btn-info mr-1 btn-sm" data-toggle="modal" data-target="#detailSO">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <a href="/so/hapus/{{ $so->id }}" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                @if ($so->status === 'menunggu')
+                                    <a href="/so/hapus/{{ $so->id }}" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @empty
@@ -72,7 +74,7 @@
     {{-- ! create modal --}}
 
     {{-- * edit modal --}}
-    <livewire:components.so.form-modal id="detailSO" title="Edit Barang" rightBtn="Ubah" event="update" />
+    <livewire:components.so.form-modal id="detailSO" title="Detail Sales Order" rightBtn="Ubah" event="update" />
     {{-- * edit modal --}}
 
     @script
