@@ -202,8 +202,7 @@ class FormModal extends Component
 
             DB::commit();
 
-            session()->flash('message', 'Sales Order berhasil dibuat!');
-            $this->dispatch('closeModal');
+            $this->dispatch('closeCreateModal');
             $this->dispatch('refresh-table');
             $this->resetForm();
 
@@ -246,9 +245,8 @@ class FormModal extends Component
 
             DB::commit();
 
-            session()->flash('message', 'Sales Order berhasil diupdate!');
             $this->mode = 'view';
-            $this->dispatch('closeModal');
+            $this->dispatch('closeEditModal');
             $this->dispatch('refresh-table');
 
         } catch (\Illuminate\Validation\ValidationException $e) {
