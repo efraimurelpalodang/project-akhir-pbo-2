@@ -74,18 +74,11 @@
 
     @script
         <script>
-            $('#buatSO').on('hidden.bs.modal', function() {
-                Livewire.dispatch('closeCreateModal')
-            })
-        </script>
-    @endscript
-    @script
-        <script>
-            $wire.on('closeEditModal', () => {
-                $('#editSO').modal('hide');
+            $wire.on('closeModal', () => {
+                $('#detailSO').modal('hide');
                 Swal.fire({
                     title: "Suksess!",
-                    text: "Sales Order Berhasil Diubah",
+                    text: "Sales Order Berhasil Dibatalkan",
                     icon: "success"
                 });
             })

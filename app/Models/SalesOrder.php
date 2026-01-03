@@ -28,7 +28,7 @@ class SalesOrder extends Model
             'menunggu'         => 'Menunggu',
             'siap_kirim'       => 'Selesai Penyiapan',
             'dikirim'          => 'Barang Dikirim',
-            'batal'            => 'Dibatalkan',
+            'dibatalkan'            => 'Dibatalkan',
             default            => 'kosong',
         };
     }

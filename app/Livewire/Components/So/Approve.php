@@ -2,11 +2,8 @@
 
 namespace App\Livewire\Components\So;
 
-use App\Models\Barang;
-use App\Models\Pembeli;
 use Livewire\Component;
 use App\Models\SalesOrder;
-use App\Models\SalesOrderDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -77,6 +74,7 @@ class Approve extends Component
     {
         $badges = [
             'menunggu' => 'badge-warning',
+            'batal' => 'badge-danger',
             'proses_persiapan' => 'badge-info',
             'siap_kirim' => 'badge-primary',
             'dikirim' => 'badge-success',
@@ -98,7 +96,7 @@ class Approve extends Component
                 'menunggu' => 'proses_persiapan',
                 'proses_persiapan' => 'siap_kirim',
                 'siap_kirim' => 'dikirim',
-                default => $so->status // Kalau sudah dikirim, gak berubah
+                default => $so->status 
             };
 
             // Update status
@@ -127,22 +125,16 @@ class Approve extends Component
 
             $so = SalesOrder::findOrFail($this->so_id);
             
-            // Bisa tambahkan validasi, misal cuma bisa dibatalkan kalau status masih menunggu
+            // cuma bisa dibatalkan kalau status masih menunggu
             if ($so->status !== 'menunggu') {
                 session()->flash('error', 'Pesanan hanya bisa dibatalkan saat status Menunggu Persetujuan');
                 return;
             }
 
-            // Soft delete atau ubah status jadi 'dibatalkan'
-            // Option 1: Soft delete
-            $so->delete();
-            
-            // Option 2: Tambah status 'dibatalkan' di enum
-            // $so->update(['status' => 'dibatalkan']);
+            $so->update(['status' => 'dibatalkan']);
 
             DB::commit();
 
-            session()->flash('message', 'Pesanan berhasil dibatalkan');
             $this->dispatch('closeModal');
             $this->dispatch('refresh-table');
 
