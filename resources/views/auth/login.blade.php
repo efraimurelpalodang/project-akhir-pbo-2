@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,6 +15,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
+
 <body class="bg-gradient-primary">
     <div class="container">
         <!-- Outer Row -->
@@ -28,28 +30,37 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Selamat Datang Kembali</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="/login" method="POST">
+                                        @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <label for="username" class="mb-0">Username</label>
+                                            <input type="text" class="form-control" id="username"
+                                                aria-describedby="username" name="username" autofocus required value="{{ old('username') }}">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                            <label for="password" class="mb-0">Password</label>
+                                            <input type="password" class="form-control" name="password" id="password"
+                                                required>
                                         </div>
                                         <div class="form-group">
-                                            <select name="peran" id="peran" class="form-control">
-                                                <option value="">-- Pilih Peran --</option>
+                                            <label for="peran" class="mb-0">Peran</label>
+                                            <select name="peran" id="peran"
+                                                class="form-control {{ $errors->has('peran') ? 'border-danger' : '' }}">
+                                                <option>-- Pilih Peran --</option>
                                                 @foreach ($peran as $p)
-                                                <option value="{{ $p->id }}">{{ $p->nama_peran }}</option>
+                                                    <option value="{{ $p->id }}" @selected(old('peran') == $p->id)>
+                                                        {{ $p->nama_peran }}
+                                                    </option>
                                                 @endforeach
+
                                             </select>
+                                            @error('peran')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary btn-block mt-4">
                                             Login
-                                        </a>
-                                        <hr>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -71,5 +82,16 @@
     <script src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('assets/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+    @if (session('login_error'))
+        <script>
+            Swal.fire({
+                title: "Login Gagal",
+                text: "{{ session('login_error') }}",
+                icon: "error"
+            });
+        </script>
+    @endif
 </body>
+
 </html>

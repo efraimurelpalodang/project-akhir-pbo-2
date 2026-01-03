@@ -3,8 +3,10 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [LoginController::class, 'index']);
-Route::view('/dashboard','dashboard')->name('dashboard');
+Route::get('/', [LoginController::class, 'index'])->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
+Route::view('/dashboard','dashboard')->name('dashboard')->middleware('auth');
 Route::view('/salesOrder','salesOrder.index')->name('salesOrder.index');
 Route::view('/SOMasuk','salesOrder.masuk')->name('salesOrder.masuk');
 Route::view('/pembeli', 'pembeli.index')->name('pembeli.index');
