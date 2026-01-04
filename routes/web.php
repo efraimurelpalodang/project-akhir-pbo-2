@@ -3,7 +3,7 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [LoginController::class, 'index'])->middleware('guest');
+Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 Route::view('/dashboard','dashboard')->name('dashboard')->middleware('auth');

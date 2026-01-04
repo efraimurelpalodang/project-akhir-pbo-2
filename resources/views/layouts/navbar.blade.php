@@ -68,19 +68,28 @@
                     Profile
                 </a>
                 <div class="dropdown-divider"></div>
-                <form action="/logout" method="POST">
-                    @csrf
-                    <button type="submit" class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </button>
-                </form>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout
+                </a>
             </div>
         </li>
     </ul>
 </nav>
+
+<form id="logoutForm" action="/logout" method="POST">
+    @csrf
+</form>
 <x-modal id="logoutModal" btnLeft="Batal" btnRight="Keluar">
     <p>Apakah anda yakin ingin keluar?</p>
+    <x-slot name="footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Batal
+        </button>
+        <button type="button" class="btn btn-danger" onclick="document.getElementById('logoutForm').submit()">
+            Keluar
+        </button>
+    </x-slot>
 </x-modal>
 <!-- End of Topbar -->
 
