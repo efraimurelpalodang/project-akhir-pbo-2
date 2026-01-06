@@ -91,6 +91,17 @@
     @endscript
     @script
         <script>
+            $wire.on('showError', (data) => {
+                Swal.fire({
+                    title: "Gagal!",
+                    text: data.message,
+                    icon: "error"
+                });
+            });
+        </script>
+    @endscript
+    @script
+        <script>
             $('#buatSO').on('hidden.bs.modal', function() {
                 Livewire.dispatch('closeCreateModal')
             })

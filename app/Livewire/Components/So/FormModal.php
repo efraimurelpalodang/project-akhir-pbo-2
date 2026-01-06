@@ -7,6 +7,7 @@ use App\Models\Pembeli;
 use App\Models\Barang;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderDetail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -133,6 +134,7 @@ class FormModal extends Component
         $this->items[$index]['barang_id'] = $id;
         $this->items[$index]['barang_nama'] = $nama;
         $this->items[$index]['harga_satuan'] = $barang->harga_jual ?? 0;
+        $this->items[$index]['stok'] = $barang->jumlah_stok ?? 0;
         $this->items[$index]['suggestions'] = [];
         
         $this->resetErrorBag('items.' . $index . '.barang_id');
@@ -146,6 +148,7 @@ class FormModal extends Component
             'barang_nama' => '',
             'jumlah' => 1,
             'harga_satuan' => 0,
+            'stok' => 0,
             'suggestions' => [],
         ];
     }
@@ -181,21 +184,46 @@ class FormModal extends Component
         $this->validate();
 
         try {
+
             DB::beginTransaction();
 
+            // CEK STOK SEMUA ITEM DULU
+            foreach ($this->items as $i => $item) {
+
+                $barang = Barang::lockForUpdate()->find($item['barang_id']);
+
+                $stok = $barang->stok ?? $barang->jumlah_stok ?? 0;
+
+                if ($stok < $item['jumlah']) {
+                    DB::rollBack();
+                    $this->dispatch('showError', 
+                        message: "Stok barang {$barang->nama_barang} tersisa {$stok}, tetapi diminta {$item['jumlah']}"
+                    );
+                    return;
+                }
+            }
+
+
+            // JIKA SEMUA AMAN → BUAT SO
             $so = SalesOrder::create([
                 'pembeli_id' => $this->pembeli_id,
-                'pengguna_id' => 1,
+                'pengguna_id' => Auth::id(),
                 'tanggal_so' => $this->tanggal_so,
                 'status' => $this->status,
                 'total_harga' => $this->grandTotal,
             ]);
 
+            // KURANGI STOK + SIMPAN DETAIL
             foreach ($this->items as $item) {
+
+                $barang = Barang::lockForUpdate()->find($item['barang_id']);
+
+                $barang->decrement('jumlah_stok', $item['jumlah']);
+
                 SalesOrderDetail::create([
                     'so_id' => $so->id,
                     'barang_id' => $item['barang_id'],
-                    'jumlah' => $item['jumlah'],
+                    'jumlah'    => $item['jumlah'],
                     'harga_satuan' => $item['harga_satuan'],
                 ]);
             }
@@ -206,13 +234,10 @@ class FormModal extends Component
             $this->dispatch('refresh-table');
             $this->resetForm();
 
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            DB::rollBack();
-            throw $e;
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Error creating sales order: ' . $e->getMessage());
-            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Log::error($e->getMessage());
+            session()->flash('error', 'Terjadi kesalahan: '.$e->getMessage());
         }
     }
 
@@ -319,6 +344,7 @@ class FormModal extends Component
                 'barang_nama' => '',
                 'jumlah' => 1,
                 'harga_satuan' => 0,
+                'stok' => 0,
                 'suggestions' => [],
             ]
         ];

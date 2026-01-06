@@ -81,6 +81,7 @@
                             <th width="40%">Nama Barang</th>
                             <th width="15%" class="text-center">Jumlah</th>
                             <th width="25%">Harga Satuan</th>
+                            <th width="10%" class="text-center">Stok</th>
                             <th width="20%" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -136,6 +137,14 @@
                                         value="Rp {{ number_format($item['harga_satuan'] ?? 0, 0, ',', '.') }}"
                                         class="form-control form-control-sm bg-light" readonly>
                                 </td>
+
+                                {{-- stok --}}
+                                <td>
+                                    <input type="text"
+                                        value="{{ number_format($item['stok'] ?? 0,) }}"
+                                        class="form-control form-control-sm bg-light" readonly>
+                                </td>
+
 
                                 <!-- Aksi -->
                                 <td class="text-center">
