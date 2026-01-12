@@ -91,20 +91,6 @@
             <span>Data Satuan</span></a>
     </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#managementBarang"
-            aria-expanded="true" aria-controls="managementBarang">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Management Barang</span>
-        </a>
-        <div id="managementBarang" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="py-2 collapse-inner rounded">
-                <a wire:navigate class="collapse-item text-white" href="login.html">Barang Masuk</a>
-                <a wire:navigate class="collapse-item text-white" href="register.html">Barang Keluar</a>
-            </div>
-        </div>
-    </li>
     <li class="nav-item">
         <a class="nav-link collapsed {{ Route::is('superadmin.*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#managementPengguna"
             aria-expanded="true" aria-controls="managementPengguna">
