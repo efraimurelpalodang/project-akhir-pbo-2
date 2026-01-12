@@ -9,13 +9,13 @@ class SuratJalan extends Model
 {
     protected $fillable = ['so_id','pengguna_id','tanggal_sj','tanggal_pengantaran'];
 
-    public function so(): BelongsTo
+    public function salesOrder()
     {
-        return $this->belongsTo(salesOrder::class);
+        return $this->belongsTo(SalesOrder::class, 'so_id');
     }
 
-    public function pengguna(): BelongsTo
+    public function petugas()
     {
-        return $this->belongsTo(pengguna::class);
+        return $this->belongsTo(Pengguna::class, 'pengguna_id');
     }
 }

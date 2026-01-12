@@ -55,7 +55,7 @@
         <div id="suratJalan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="collapse-inner rounded">
                 <a wire:navigate class="collapse-item text-white" href="/surat">So Siap Diantar</a>
-                <a wire:navigate class="collapse-item text-white" href="buttons.html">Daftar Surat Jalan</a>
+                <a wire:navigate class="collapse-item text-white" href="/listSJ">Daftar Surat Jalan</a>
             </div>
         </div>
     </li>

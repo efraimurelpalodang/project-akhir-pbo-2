@@ -15,8 +15,8 @@ class SalesOrder extends Model
         return match($this->status) {
             'proses_persiapan' => 'warning',
             'menunggu'         => 'info',
-            'siap_kirim'       => 'success',
-            'dikirim'          => 'secondary',
+            'siap_kirim'       => 'secondary',
+            'dikirim'          => 'success',
             default            => 'danger',
         };
     }

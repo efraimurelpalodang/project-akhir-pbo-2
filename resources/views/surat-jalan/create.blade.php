@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'List SO siap antar')
+@section('title', 'SO Ready')
 @section('content')
     @livewire('surat-jalan.create')
 @endsection

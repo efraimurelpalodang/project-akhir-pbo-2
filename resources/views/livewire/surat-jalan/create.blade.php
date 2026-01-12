@@ -1,9 +1,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Data Sales Order Siap Di antar</h6>
-        <button wire:click="clean" class="btn btn-primary" data-toggle="modal" data-target="#tambahBarang">
-            Buat Surat Jalan
-        </button>
     </div>
     <div class="card-body">
         <div class="mb-3 d-flex justify-content-between">
@@ -65,17 +62,13 @@
                     @endforelse
                 </tbody>
             </table>
-            {{-- {{ $salesOrders->links() }} --}}
+            {{ $salesOrders->links() }}
         </div>
     </div>
 
     {{-- ! create modal --}}
     @livewire('surat-jalan.form-modal')
     {{-- ! create modal --}}
-
-    {{-- * edit modal --}}
-    {{-- <x-barang.form-modal id="editBarang" title="Edit Barang" rightBtn="Ubah" event="update" :satuans="$satuans" /> --}}
-    {{-- * edit modal --}}
 
     @script
         <script>
@@ -87,18 +80,6 @@
                     icon: "success"
                 });
             });
-        </script>
-    @endscript
-    @script
-        <script>
-            $wire.on('closeEditModal', () => {
-                $('#editBarang').modal('hide');
-                Swal.fire({
-                    title: "Suksess!",
-                    text: "Data Barang Berhasil Diubah",
-                    icon: "success"
-                });
-            })
         </script>
     @endscript
 </div>
