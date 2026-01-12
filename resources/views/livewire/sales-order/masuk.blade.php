@@ -78,7 +78,7 @@
                 $('#detailSO').modal('hide');
                 Swal.fire({
                     title: "Suksess!",
-                    text: "Sales Order Berhasil Dibatalkan",
+                    text: "Status sales order berhasil diupdate",
                     icon: "success"
                 });
             })

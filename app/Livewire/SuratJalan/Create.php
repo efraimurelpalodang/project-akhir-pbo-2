@@ -5,12 +5,34 @@ namespace App\Livewire\SuratJalan;
 use App\Models\Pembeli;
 use Livewire\Component;
 use App\Models\SalesOrder;
+use App\Models\SuratJalan;
+use Illuminate\Support\Facades\Auth;
 
 class Create extends Component
 {
+    protected $listeners = [
+        'refresh-table' => '$refresh',
+    ];
+    
     public $paginate = '10',
         $search = '',
-        $filter = 'nama_pembeli';
+        $filter = 'nama_pembeli',
+        $so_id; 
+
+    public function pilihSO($id)
+    {
+        $this->so_id = $id;
+    }
+
+    public function simpan()
+    {
+        SuratJalan::create([
+            'so_id' => $this->so_id,
+            'pengguna_id' => Auth::id(),
+            'tanggal_sj' => now(),
+            'tanggal_pengantaran' => now(),
+        ]);
+    }
 
     public function render()
     {

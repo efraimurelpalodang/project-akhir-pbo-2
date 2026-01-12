@@ -45,8 +45,8 @@
                             </td>
                             <td>{{ $so->petugas->nama_pengguna }}</td>
                             <td class="d-flex justify-content-center align-items-center">
-                                <button wire:click='$dispatch("viewSO", {id: {{ $so->id }}})'
-                                    class="btn btn-info mr-1 btn-sm" data-toggle="modal" data-target="#detailSO">
+                                <button wire:click="$dispatch('pilih-so', { soId: {{ $so->id }} })"
+                                    class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalSuratJalan">
                                     <i class="fas fa-eye"></i>
                                 </button>
                                 @if ($so->status === 'menunggu')
@@ -70,7 +70,7 @@
     </div>
 
     {{-- ! create modal --}}
-    {{-- <x-barang.form-modal id="tambahBarang" title="Tambah Barang" rightBtn="Simpan" event="store" :satuans="$satuans" /> --}}
+    @livewire('surat-jalan.form-modal')
     {{-- ! create modal --}}
 
     {{-- * edit modal --}}
@@ -80,13 +80,13 @@
     @script
         <script>
             $wire.on('closeCreateModal', () => {
-                $('#tambahBarang').modal('hide');
+                $('#modalSuratJalan').modal('hide');
                 Swal.fire({
-                    title: "Suksess!",
-                    text: "Data Barang Berhasil Ditambahkan",
+                    title: "Berhasil!",
+                    text: "Surat Jalan berhasil dibuat",
                     icon: "success"
                 });
-            })
+            });
         </script>
     @endscript
     @script
