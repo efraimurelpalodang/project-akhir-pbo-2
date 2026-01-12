@@ -1,32 +1,29 @@
 <?php
 
-namespace App\Livewire\SalesOrder;
+namespace App\Livewire\SuratJalan;
 
 use App\Models\Pembeli;
 use Livewire\Component;
 use App\Models\SalesOrder;
-use Livewire\Attributes\On;
 
-class Index extends Component
+class Create extends Component
 {
     public $paginate = '10',
-            $search;
-
-    #[On('refresh-table')]
-    public function refreshTable(){}
+        $search = '',
+        $filter = 'nama_pembeli';
 
     public function render()
     {
-        $query = SalesOrder::query();
+        $query = SalesOrder::query()->where('status', 'siap_kirim');
 
-        $query->where(function ($q) {
+        $query->where(function ($q) {   
             $q->whereHas('pembeli', function ($q2) {
                 $q2->where('nama_pembeli', 'like', '%' . $this->search . '%');
             })
                 ->orWhereDate('tanggal_so', $this->search);
         });
 
-        return view('livewire.sales-order.index', [
+        return view('livewire.surat-jalan.create', [
             'salesOrders' => $query
                 ->with(['pembeli', 'petugas'])
                 ->latest()
@@ -34,5 +31,4 @@ class Index extends Component
             'pembelis' => Pembeli::all()
         ]);
     }
-    
 }
