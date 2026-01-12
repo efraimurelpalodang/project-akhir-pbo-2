@@ -2,26 +2,40 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TransaksiPenjualan extends Model
 {
-    protected $fillable = ['pengguna_id','pembeli_id','tanggal_transaksi','tanggal_antar','total_harga'];
+    use HasFactory;
 
-    public function pengguna(): BelongsTo
+    protected $fillable = [
+        'pengguna_id',
+        'so_id',
+        'tanggal_transaksi',
+        'tanggal_antar',
+        'total_harga',
+    ];
+
+    protected $casts = [
+        'tanggal_transaksi' => 'date',
+        'tanggal_antar' => 'date',
+        'total_harga' => 'decimal:0',
+    ];
+
+    // Relasi
+    public function pengguna()
     {
-        return $this->belongsTo(pengguna::class);
+        return $this->belongsTo(Pengguna::class);
     }
 
-    public function pembeli(): BelongsTo
+    public function salesOrder()
     {
-        return $this->belongsTo(pembeli::class);
+        return $this->belongsTo(SalesOrder::class, 'so_id');
     }
 
-    public function transaksi_detail(): HasMany
+    public function details()
     {
-        return $this->hasMany(transaksiPenjualan::class);
+        return $this->hasMany(TransaksiPenjualanDetail::class, 'transaksi_id');
     }
 }

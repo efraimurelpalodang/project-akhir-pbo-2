@@ -3,13 +3,12 @@
         <div class="container-fluid">
             <!-- Content Row -->
             <div class="row">
-                <livewire:components.card-info title="total trankaksi" value="$40,000" color="primary"
+                <livewire:components.card-info title="Trankaksi Hari Ini" value="$40,000" color="primary"
                     icon="fas fa-calendar" />
                 <livewire:components.card-info title="total penjualan" value="$215,000" color="success"
                     icon="fas fa-dollar-sign" />
-                <livewire:components.card-info title="Tasks" value="50%" color="info" icon="fas fa-clipboard-list"
-                    progress="50" />
-                <livewire:components.card-info title="Pending Requests" value="18" color="warning"
+                <livewire:components.card-info title="Barang Restock" value="50%" color="info" icon="fas fa-clipboard-list"/>
+                <livewire:components.card-info title="Pesanan Menunggu" value="18" color="warning"
                     icon="fas fa-comments" />
             </div>
             <div class="row">
@@ -48,7 +47,7 @@
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">List Barang Restock</h6>
                             <div class="dropdown no-arrow">
 
                             </div>
