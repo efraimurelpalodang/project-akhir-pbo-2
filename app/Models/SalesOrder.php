@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SalesOrder extends Model
 {
+    use HasFactory;
+    
     protected $fillable = ['pembeli_id','transaksi_id','pengguna_id','tanggal_so','status','total_harga'];
 
     public function getBadgeColorAttribute()

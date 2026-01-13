@@ -6,10 +6,14 @@ use App\Models\Pembeli;
 use Livewire\Component;
 use App\Models\SalesOrder;
 use App\Models\SuratJalan;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
 class Create extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    
     protected $listeners = [
         'refresh-table' => '$refresh',
     ];

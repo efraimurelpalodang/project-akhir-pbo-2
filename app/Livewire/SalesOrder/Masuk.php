@@ -6,9 +6,13 @@ use App\Models\Pembeli;
 use Livewire\Component;
 use App\Models\SalesOrder;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
 
 class Masuk extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    
     public $paginate = '10',
             $filter = 'penguna_id',
             $search = '';

@@ -9,7 +9,6 @@ use App\Models\SuratJalan;
 class Index extends Component
 {
     use WithPagination;
-
     protected $paginationTheme = 'bootstrap';
 
     public $paginate = 10;
