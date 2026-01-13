@@ -93,8 +93,8 @@ Aplikasi akan berjalan di: **http://127.0.0.1:8000**
 
 Setelah seeder berhasil dijalankan, gunakan akun berikut untuk login:
 
-- **Username:** `ovfpnnnvtrvsxfa`
-- **Password:** `password`
+- **Username:** `admin1`
+- **Password:** `password123`
 - **Peran   :** `admin`
 
 ---
