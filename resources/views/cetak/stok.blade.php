@@ -325,11 +325,11 @@
         $stokAman = 0;
         $stokRendah = 0;
         $stokHabis = 0;
-        
+
         foreach ($data as $row) {
             $totalStok += $row->jumlah_stok;
-            $totalNilai += ($row->jumlah_stok * $row->harga_jual);
-            
+            $totalNilai += $row->jumlah_stok * $row->harga_jual;
+
             if ($row->jumlah_stok == 0) {
                 $stokHabis++;
             } elseif ($row->jumlah_stok <= 15) {
@@ -358,8 +358,8 @@
             <tr>
                 <td>Status Stok</td>
                 <td class="highlight-value">
-                    <span style="color: #27ae60;">{{ $stokAman }} Aman</span>, 
-                    <span style="color: #e67e22;">{{ $stokRendah }} Rendah</span>, 
+                    <span style="color: #27ae60;">{{ $stokAman }} Aman</span>,
+                    <span style="color: #e67e22;">{{ $stokRendah }} Rendah</span>,
                     <span style="color: #c0392b;">{{ $stokHabis }} Habis</span>
                 </td>
             </tr>
@@ -401,7 +401,9 @@
                     <td class="col-no text-center">{{ $no++ }}</td>
                     <td class="col-kode">{{ $row->kode }}</td>
                     <td>{{ $row->nama_barang }}</td>
-                    <td class="col-satuan text-center">{{ $row->satuan->nama_satuan }}</td>
+                    <td class="col-satuan text-center">
+                        {{ $row->satuan->nama_satuan ?? '-' }}
+                    </td>
                     <td class="col-stok text-center {{ $stokClass }}">
                         {{ number_format($row->jumlah_stok, 0, ',', '.') }}
                     </td>
@@ -440,9 +442,15 @@
                 <td></td>
             </tr>
             <tr>
-                <td><div class="sig-line">( Staff Gudang )</div></td>
-                <td><div class="sig-line">( Supervisor )</div></td>
-                <td><div class="sig-line">( Manager )</div></td>
+                <td>
+                    <div class="sig-line">( Staff Gudang )</div>
+                </td>
+                <td>
+                    <div class="sig-line">( Supervisor )</div>
+                </td>
+                <td>
+                    <div class="sig-line">( Manager )</div>
+                </td>
             </tr>
         </table>
     </div>
