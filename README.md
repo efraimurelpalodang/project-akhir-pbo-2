@@ -44,12 +44,11 @@ Buka file `.env` dan sesuaikan konfigurasi database:
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=nama_database_anda
+DB_DATABASE=db_penjualan_material_bangunan
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-> Ganti `nama_database_anda` dengan nama database yang akan digunakan.
 
 ### 4. Generate Application Key
 
@@ -79,16 +78,8 @@ php artisan db:seed
 
 > Seeder akan membuat data awal termasuk akun untuk login.
 
-### 8. Install Dependencies JavaScript (Opsional)
 
-Jika ada assets yang perlu di-compile:
-
-```bash
-npm install
-npm run build
-```
-
-### 9. Jalankan Aplikasi
+### 8. Jalankan Aplikasi
 
 ```bash
 php artisan serve
@@ -125,59 +116,3 @@ Setelah seeder berhasil dijalankan, gunakan akun berikut untuk login:
 └── .env                      # Konfigurasi Environment
 ```
 
----
-
-## 🛠️ Troubleshooting
-
-### Error: "Class not found"
-```bash
-composer dump-autoload
-```
-
-### Error: "No application encryption key"
-```bash
-php artisan key:generate
-```
-
-### Error: "Access denied for user"
-Pastikan konfigurasi database di `.env` sudah benar.
-
-### Error: "SQLSTATE[HY000] [2002]"
-Pastikan MySQL/MariaDB sudah berjalan.
-
-### Storage Permission Error (Linux/Mac)
-```bash
-chmod -R 775 storage bootstrap/cache
-```
-
----
-
-## 📦 Fitur Utama Aplikasi
-
-- ✅ Manajemen Stok Barang
-- ✅ Manajemen Sales Order (SO)
-- ✅ Manajemen Surat Jalan
-- ✅ Manajemen Pembeli
-- ✅ Manajemen User & Role
-- ✅ Laporan Penjualan (PDF)
-- ✅ Laporan Stok Barang (PDF)
-
----
-
-## 📞 Bantuan
-
-Jika mengalami kendala saat instalasi atau menjalankan aplikasi, silakan hubungi pengembang atau buka dokumentasi Laravel di: https://laravel.com/docs
-
----
-
-## 📝 Catatan Tambahan
-
-- Aplikasi ini menggunakan **Laravel 10.x** dan **Livewire 3.x**
-- Pastikan semua dependencies terinstall dengan benar
-- Jangan lupa jalankan `php artisan migrate` dan `php artisan db:seed`
-- Untuk development, gunakan `php artisan serve`
-- Untuk production, deploy menggunakan Apache/Nginx dengan Virtual Host
-
----
-
-**Terima kasih telah menggunakan MatStock!** 🚀
