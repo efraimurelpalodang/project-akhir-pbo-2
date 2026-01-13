@@ -14,5 +14,12 @@ class PenggunaSeeder extends Seeder
     public function run(): void
     {
         Pengguna::factory()->count(5)->create();
+        Pengguna::create([
+            'role_id' => 1,
+            'username' => 'admin1',
+            'password' => bcrypt('password123'),
+            'nama_pengguna' => 'Admin Utama',
+            'telp' => '0812345678910',
+        ]);
     }
 }
