@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+            <i class="fas fa-clipboard-list"></i>
         </div>
         <div class="sidebar-brand-text mx-3">MatStock<sup>nice</sup></div>
     </a>
@@ -28,18 +28,19 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item {{ request()->is('pembeli') ? 'active' : '' }}">
         <a wire:navigate class="nav-link" href="/pembeli">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-users"></i>
             <span>Data Pembeli</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item {{ request()->is('salesOrder*') || request()->is('SOMasuk*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#salesOrder"
             aria-expanded="true" aria-controls="salesOrder">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-file-signature"></i>
             <span>Sales Order</span>
         </a>
-        <div id="salesOrder" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="salesOrder"
+            class="collapse {{ request()->is('salesOrder*') || request()->is('SOMasuk*') ? 'show' : '' }}">
             <div class="collapse-inner rounded">
                 <a wire:navigate class="collapse-item text-white" href="/salesOrder">Daftar Sales Order</a>
                 <a wire:navigate class="collapse-item text-white" href="/SOMasuk">Sales Order Masuk</a>
@@ -49,7 +50,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#suratJalan"
             aria-expanded="true" aria-controls="suratJalan">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-shipping-fast"></i>
             <span>Surat Jalan</span>
         </a>
         <div id="suratJalan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -62,7 +63,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#laporan" aria-expanded="true"
             aria-controls="laporan">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-print"></i>
             <span>Cetak Laporan</span>
         </a>
         <div id="laporan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -82,25 +83,27 @@
     </div>
     <li class="nav-item">
         <a wire:navigate class="nav-link" href="/barang">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-boxes"></i>
             <span>Data Barang</span></a>
     </li>
     <li class="nav-item">
         <a wire:navigate class="nav-link" href="/satuan">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-balance-scale"></i>
             <span>Data Satuan</span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed {{ Route::is('superadmin.*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#managementPengguna"
-            aria-expanded="true" aria-controls="managementPengguna">
-            <i class="fas fa-fw fa-folder"></i>
+        <a class="nav-link collapsed {{ Route::is('superadmin.*') ? 'active' : '' }}" href="#"
+            data-toggle="collapse" data-target="#managementPengguna" aria-expanded="true"
+            aria-controls="managementPengguna">
+            <i class="fas fa-user-shield"></i>
             <span>Management Pengguna</span>
         </a>
-        <div id="managementPengguna" class="collapse {{ request()->is('superadmin/*') ? 'show' : '' }}" aria-labelledby="headingPages"
-            data-parent="#accordionSidebar">
+        <div id="managementPengguna" class="collapse {{ request()->is('superadmin/*') ? 'show' : '' }}"
+            aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="py-2 collapse-inner rounded">
-                <a wire:navigate class="collapse-item text-white {{ Route::is('superadmin.user.*') ? 'active' : '' }}" href="/superadmin/user">Data Pengguna</a>
+                <a wire:navigate class="collapse-item text-white {{ Route::is('superadmin.user.*') ? 'active' : '' }}"
+                    href="/superadmin/user">Data Pengguna</a>
                 <a wire:navigate class="collapse-item text-white" href="/superadmin/peran">Data Peran</a>
             </div>
         </div>
