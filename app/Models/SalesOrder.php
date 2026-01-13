@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -48,8 +49,8 @@ class SalesOrder extends Model
         return $this->hasMany(salesOrderDetail::class, 'so_id');
     }
 
-    public function sj(): BelongsTo
+    public function sj(): HasOne
     {
-        return $this->belongsTo(suratJalan::class);
+        return $this->hasOne(SuratJalan::class, 'so_id');
     }
 }

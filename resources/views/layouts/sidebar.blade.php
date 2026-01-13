@@ -63,12 +63,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#laporan" aria-expanded="true"
             aria-controls="laporan">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Laporan</span>
+            <span>Cetak Laporan</span>
         </a>
         <div id="laporan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="collapse-inner rounded">
-                <a wire:navigate class="collapse-item text-white" href="buttons.html">Laporan Penjualan</a>
-                <a wire:navigate class="collapse-item text-white" href="buttons.html">Laporan Stok</a>
+                <a class="collapse-item text-white" href="/cetak/penjualan" target="blank">Laporan Penjualan</a>
+                <a class="collapse-item text-white" href="/cetak/stok" target="blank">Laporan Stok</a>
             </div>
         </div>
     </li>
@@ -105,14 +105,7 @@
             </div>
         </div>
     </li>
-
-    <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-
-    <!-- Sidebar Toggler (Sidebar) -->
-    {{-- <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div> --}}
 
 </ul>
 <!-- End of Sidebar -->

@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CetakController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
@@ -16,3 +17,5 @@ Route::view('/superadmin/user', 'superadmin.user.index')->name('superadmin.user.
 Route::view('/superadmin/peran', 'superadmin.peran.index')->name('superadmin.peran.index');
 Route::view('/barang', 'barang.index')->name('barang.index');
 Route::view('/satuan', 'satuan.index')->name('satuan.index');
+Route::get('/cetak/penjualan', [CetakController::class, 'penjualan'])->name('cetak.penjualan');
+Route::get('/cetak/stok', [CetakController::class, 'stok'])->name('cetak.stok');
