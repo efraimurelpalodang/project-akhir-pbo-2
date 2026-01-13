@@ -61,7 +61,7 @@ php artisan key:generate
 Buat database baru di MySQL/MariaDB dengan nama sesuai yang ada di file `.env`:
 
 ```sql
-CREATE DATABASE nama_database_anda;
+CREATE DATABASE db_penjualan_material_bangunan;
 ```
 
 ### 6. Jalankan Migration
