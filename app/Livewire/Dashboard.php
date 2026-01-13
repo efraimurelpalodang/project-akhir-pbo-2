@@ -14,7 +14,7 @@ class Dashboard extends Component
         $transaksiHariIni = SalesOrder::whereDate('tanggal_so', Carbon::today())
             ->sum('total_harga');
         $totalPenjualan = SalesOrder::sum('total_harga');
-        $barangRestock = Barang::whereColumn('stok', '<=', 'stok_minimal')->count();
+        $barangRestock = Barang::where('jumlah_stok', '<=', 5)->count();
         $pesananMenunggu = SalesOrder::where('status', 'menunggu')->count();
 
         return view('livewire.dashboard', [
